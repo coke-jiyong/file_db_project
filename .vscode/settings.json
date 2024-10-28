@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "user_db.h": "c",
+        "hkdf.h": "c",
+        "ioctl.h": "c"
+    }
+}
