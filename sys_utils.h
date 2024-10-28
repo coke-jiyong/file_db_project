@@ -10,5 +10,6 @@ typedef struct {
 
 // init() 함수에서 사용할 정보 저장.
 void init_config(header_conf * conf);
-int read_user(uint8_t ** user_db, size_t user_db_len);
+int read_user(uint8_t ** db, size_t db_len);
+int write_user(const uint8_t *db, size_t db_len);
 #endif

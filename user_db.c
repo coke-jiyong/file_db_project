@@ -66,6 +66,7 @@ int init() {
         aes_key , sizeof(aes_key)
     );
 
+    db_init();
     // //test
     // for(int i = 0 ; i < 100 ; i ++) {
     //     hkdf(
@@ -114,7 +115,40 @@ int db_export(){
     //암호화
     uint8_t *enc;
     size_t size = sizeof(header) + MAX_USER * sizeof(member);
-    enc = (uint8_t*)malloc(size);
+    enc = (uint8_t*)malloc(size); // +패딩?
+
+    memset(enc , 0 , size);
+    memcpy(enc , user_db , sizeof(header));
+
+    size_t enc_off = offsetof(header, user_id); //암호화 하지 않을 offset
+    size_t out_len = size - enc_off;
+
+    int res = aes128_cbc_encrypt((uint8_t*)user_db + enc_off , out_len , //out_len + 16 > *out_len
+                                enc + enc_off ,&out_len , 
+                                (uint8_t*)aes_key , (uint8_t*)user_db->iv);
+
+    if(res != 0) {
+        fprintf(stderr, "db encrypt error.\n");
+        free(enc);
+        return -2;
+    }
+
+    //hmac업데이트
+    size_t iv_offs = offsetof(header,iv);
+    hmac_sha256(aes_key, AES128_KEY_LEN ,
+                enc + iv_offs , size - iv_offs ,
+                enc + offsetof(header , hmac));
+
+    res = write_user(enc , size);
+    if (res != 0) {
+        fprintf(stderr, "write user db error, maybe user doesn't have permission to write file\n");
+        free(enc);
+        exit(1);    
+    }
+
+
+    free(enc);
+    return 0;
 
 }
 
@@ -185,6 +219,20 @@ int db_init(void)
     return 0;
 }
 
+// member *db_add_user(char *name , char gender, uint8_t age) {
+//     if (name == NULL || user_db == NULL) {
+//         return NULL;
+//     }
+
+//     //중복 검사
+
+//     for(int i = 0 ; i < MAX_USER ; i ++) {
+//         if(user_db->user[i].name[0] == '\0')
+//             continue;
+
+//         if (strcmp(name , user_db->user[i].name) == 0)
+//     }
+// }
 int main(void) {
     // db_new();
     // uint64_t res = *(uint64_t*)user_db->iv + 8; //iv[16]중 뒤 8바이트는 cprng()함수로 인해 0이면 에러.
@@ -208,5 +256,15 @@ int main(void) {
     // printf("%d\n", *(uint64_t*)user_db->iv);
     // free(user_db);
     
+
+
+    init();
+
+    user_db->user[0].name = strdup("park");
+    user_db->user[0].age = 27;
+    user_db->user[0].gender = MALE;
+
+    db_export();
+    free(user_db);
     return 0;
 }

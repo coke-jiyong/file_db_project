@@ -8,8 +8,8 @@
 #include <openssl/sha.h>
 #include <openssl/rand.h>
 #include "sys_utils.h"
-#define FEMALE F
-#define MALE M
+#define FEMALE 'F'
+#define MALE 'M'
 #define USER_DB_MAGIC 0x4341544f
 #define START_USER_ID 1
 #define MAX_USER 10
@@ -36,4 +36,5 @@ typedef struct
 extern uint8_t aes_key[AES128_KEY_LEN];
 extern header_conf conf;
 
+int init();
 #endif

@@ -1,12 +1,14 @@
 #include <net/if.h>
 #include <sys/ioctl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "sys_utils.h"
 #include "user_db.h"
 
-const char *db_filename = "/tmp/filedb.db";
+const char *db_filename = "/home/ubuntu/mytmp/mytest/flexibleMemberTest/filedb.db";
 static char unique_id[24]; 
 
 static char *get_default_interface()
@@ -76,6 +78,48 @@ void init_config(header_conf * conf){
     *conf = config;
 }
 
+int write_user(const uint8_t *db, size_t db_len) {
+    char temp_file[strlen(db_filename) + 20];
+    int fd;
+
+    sprintf(temp_file , "%s.XXXXXX", db_filename);
+    fd = mkstemp(temp_file); //템프파일생성 XXXXXXX 는 고유한 랜덤문자열로 치환됨.
+    if (fd == -1) {
+        fprintf(stderr, "make temp file failed.\n");
+        return -1;
+    }
+
+    mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH; //rw-r--r-- 로 파일권한 설정
+    if (fchmod(fd, mode) == -1) {
+        fprintf(stderr, "change tempfile permission failed.\n");
+        close(fd);
+        return -1;
+    }
+
+    FILE *file = fdopen(fd, "wb");
+    if (file == NULL) {
+        fprintf(stderr, "open tempfile failed.\n");        
+        close(fd);
+        return -1;
+    }
+
+    fwrite(db , db_len , 1 , file);
+
+    if (fsync(fd) != 0) {
+        fprintf(stderr, "fsync failed.\n"); //fsync함수가 0을 반환하지 않았다는것은 디스크에 파일이 제대로 쓰이지 않았다는 뜻.
+        close(fd);
+        return -1;
+    }
+    fclose(file);
+
+    if(rename(temp_file , db_filename) != 0) {
+        fprintf(stderr, "tempfile -> db_filename failed.\n");
+        return -1;
+    }
+
+    return 0;
+
+}
 
 int read_user(uint8_t ** db, size_t db_len){
     FILE *file;
