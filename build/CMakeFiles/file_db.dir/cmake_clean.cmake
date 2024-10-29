@@ -3,8 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/file_db.dir/src/sys_utils.o.d"
   "CMakeFiles/file_db.dir/src/user_db.o"
   "CMakeFiles/file_db.dir/src/user_db.o.d"
-  "file_db"
-  "file_db.pdb"
+  "libfile_db.a"
+  "libfile_db.pdb"
 )
 
 # Per-language clean rules from dependency scanning.

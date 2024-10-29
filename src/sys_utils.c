@@ -72,7 +72,7 @@ static header_conf config = {
     .info = "My file db project",
 };
 
-void init_config(header_conf * conf){
+void init_config(header_conf * conf) {
     fill_unique_id();
     config.unique_id = unique_id;
     *conf = config;
@@ -136,7 +136,7 @@ int read_user(uint8_t ** db, size_t db_len){
     fseek(file , 0 , SEEK_END); //파일포인터를 파일의 마지막으로 옮김.
     file_size = ftell(file); //파일포인터의 현재 포지션. (파일사이즈)
     rewind(file); // 파일포인터 파일의 시작으로 다시 옮김. fseek(file , 0 , SEEK_SET)
-    //printf("file_size : %d\n", file_size);
+    
 
     
     if(file_size > db_len) {

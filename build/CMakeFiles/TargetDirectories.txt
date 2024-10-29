@@ -1,3 +1,4 @@
 /home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles/file_db.dir
+/home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles/test_file_db.dir
 /home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles/edit_cache.dir
 /home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles/rebuild_cache.dir

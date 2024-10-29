@@ -7,7 +7,7 @@ uint8_t aes_key[AES128_KEY_LEN];
 uint8_t test_aes_key[AES128_KEY_LEN];
 header_conf conf;
 
-static int aes128_cbc_decrypt(const uint8_t *in, size_t in_len, uint8_t *out, size_t *out_len, const uint8_t key[16], const uint8_t iv[16])
+int aes128_cbc_decrypt(const uint8_t *in, size_t in_len, uint8_t *out, size_t *out_len, const uint8_t key[16], const uint8_t iv[16])
 {
     AES_KEY aes_key;
     uint8_t iv_int[16];
@@ -24,7 +24,7 @@ static int aes128_cbc_decrypt(const uint8_t *in, size_t in_len, uint8_t *out, si
     return 0;
 }
 
-static int aes128_cbc_encrypt(const uint8_t *in, size_t in_len, uint8_t *out, size_t *out_len, const uint8_t key[16], const uint8_t iv[16])
+int aes128_cbc_encrypt(const uint8_t *in, size_t in_len, uint8_t *out, size_t *out_len, const uint8_t key[16], const uint8_t iv[16])
 {
     AES_KEY aes_key;
     uint8_t iv_int[16];
@@ -52,6 +52,15 @@ static int aes128_cbc_encrypt(const uint8_t *in, size_t in_len, uint8_t *out, si
     return 0;    
 }
 
+int cprng(uint8_t *buf, size_t len)
+{
+    if (RAND_bytes(buf, len) != 1) {
+        // Error occurred during random number generation
+        return -1;
+    }
+    return 0;
+}
+
 //conf 불러오기 , aes_key 생성
 int init() {
     
@@ -65,31 +74,11 @@ int init() {
         (uint8_t *)conf.info , strlen(conf.info),
         aes_key , sizeof(aes_key)
     );
-    //printf("aesKey: %s\n", aes_key);
 
-    //db_init();
-    // //test
-    // for(int i = 0 ; i < 100 ; i ++) {
-    //     hkdf(
-    //         (uint8_t *)conf.passphrase , strlen(conf.passphrase) , 
-    //         (uint8_t *)conf.unique_id , strlen(conf.unique_id),
-    //         (uint8_t *)conf.info , strlen(conf.info),
-    //         test_aes_key , sizeof(test_aes_key)
-    //     );
-
-    //     assert(memcmp(aes_key, test_aes_key, sizeof(aes_key)) == 0);
-    // }
+    db_init();
 }
 
 
-int cprng(uint8_t *buf, size_t len)
-{
-    if (RAND_bytes(buf, len) != 1) {
-        // Error occurred during random number generation
-        return -1;
-    }
-    return 0;
-}
 
 // user_db변수 초기화.
 void db_new(void) {
@@ -105,7 +94,7 @@ void db_new(void) {
     cprng(user_db->iv + sizeof(uint64_t) , sizeof(user_db->iv) - sizeof(uint64_t));
 }
 
-int db_export(){
+int db_export(void){
     if(user_db == NULL) {
         return -1;
     }
@@ -156,7 +145,7 @@ int db_export(){
 }
 
 //db파일 user_db로 읽어옴.
-int db_import() {
+int db_import(void) {
     uint8_t *enc;
     size_t size = sizeof(header) + MAX_USER * sizeof(member) + PADDING_SIZE; //패딩을 ?
     int res;
@@ -168,7 +157,6 @@ int db_import() {
     }
 
     res = read_user(&enc , size);
-    printf("read size: %d\n", res);
 
     if(res <= 0) {
         return -1;
@@ -241,55 +229,63 @@ int db_init(void)
 //         if (strcmp(name , user_db->user[i].name) == 0)
 //     }
 // }
-int main(void) {
 
-    // db_new();
-    // uint64_t res = *(uint64_t*)user_db->iv + 8; //iv[16]중 뒤 8바이트는 cprng()함수로 인해 0이면 에러.
-    // if(res == 0) {
-    //     fprintf(stderr,"error.\n");
-    //     free(user_db);
-    //     return 0;
-    // }
+// int main(void) {
+
+//     // db_new();
+//     // uint64_t res = *(uint64_t*)user_db->iv + 8; //iv[16]중 뒤 8바이트는 cprng()함수로 인해 0이면 에러.
+//     // if(res == 0) {
+//     //     fprintf(stderr,"error.\n");
+//     //     free(user_db);
+//     //     return 0;
+//     // }
     
-    // res = *(uint64_t*)user_db->iv; // iv[16] 중 앞의 8바이트는 초기화하지않았기때문에 0이여야함. de_new()직후만 한정.
-    // if(res != 0) {
-    //     fprintf(stderr,"error.\n");
-    //     free(user_db);
-    //     return 0;
-    // }  
+//     // res = *(uint64_t*)user_db->iv; // iv[16] 중 앞의 8바이트는 초기화하지않았기때문에 0이여야함. de_new()직후만 한정.
+//     // if(res != 0) {
+//     //     fprintf(stderr,"error.\n");
+//     //     free(user_db);
+//     //     return 0;
+//     // }  
 
 
-    // db_new();
-    // printf("%d\n", *(uint64_t*)user_db->iv);
-    // *(uint64_t*)user_db->iv = *(uint64_t*)user_db->iv + 1;
-    // printf("%d\n", *(uint64_t*)user_db->iv);
-    // free(user_db);
+//     // db_new();
+//     // printf("%d\n", *(uint64_t*)user_db->iv);
+//     // *(uint64_t*)user_db->iv = *(uint64_t*)user_db->iv + 1;
+//     // printf("%d\n", *(uint64_t*)user_db->iv);
+//     // free(user_db);
     
-    //export test
-    // init();
-    // db_new();
-    // user_db->user[0].age = 28;
-    // user_db->user[0].gender = MALE;
-    // strcpy(user_db->user[0].name ,"Park" );
-    // db_export();
-    // free(user_db);
-    // user_db = NULL;
+//     //export test
+//     // init();
+//     // db_new();
+//     // user_db->user[0].age = 28;
+//     // user_db->user[0].gender = MALE;
+//     // strcpy(user_db->user[0].name ,"Park" );
+//     // db_export();
+//     // free(user_db);
+//     // user_db = NULL;
     
-    //import test
-    // init();
-    // int res = db_import();
-    // printf("db_import(): %d\n", res);
-    // printf("name: %s\n", user_db->user->name);
-    // printf("age: %d\n",user_db->user[0].age);
-    // printf("gender: %c\n",user_db->user[0].gender);
+//     //import test
+//     // init();
+//     // int res = db_import();
+//     // printf("db_import(): %d\n", res);
+//     // printf("name: %s\n", user_db->user->name);
+//     // printf("age: %d\n",user_db->user[0].age);
+//     // printf("gender: %c\n",user_db->user[0].gender);
     
-    // if(res == 0) {
-    //     //printf("name: %s\nage: %d\ngender: %c\n",user_db->user[0].name,user_db->user[0].age, user_db->user[0].gender);
-    //     free(user_db);
-    // }
+//     // if(res == 0) {
+//     //     //printf("name: %s\nage: %d\ngender: %c\n",user_db->user[0].name,user_db->user[0].age, user_db->user[0].gender);
+//     //     free(user_db);
+//     // }
 
 
-    
+//     init();
+//     // user_db->user[0].age = 28;
+//     // user_db->user[0].gender = MALE;
+//     // strcpy(user_db->user[0].name ,"Park" );
+//     // db_export();
 
-    return 0;
-}
+
+//     printf("name: %s\nage: %d\ngender: %c\n",user_db->user[0].name,user_db->user[0].age, user_db->user[0].gender);
+//     free(user_db);
+//     return 0;
+// }

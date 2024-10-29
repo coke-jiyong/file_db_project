@@ -64,6 +64,7 @@ CMAKE_BINARY_DIR = /home/ubuntu/mytmp/mytest/flexibleMemberTest/build
 
 # The main recursive "all" target.
 all: CMakeFiles/file_db.dir/all
+all: CMakeFiles/test_file_db.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -72,6 +73,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/file_db.dir/clean
+clean: CMakeFiles/test_file_db.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -99,6 +101,32 @@ file_db: CMakeFiles/file_db.dir/rule
 CMakeFiles/file_db.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/clean
 .PHONY : CMakeFiles/file_db.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_file_db.dir
+
+# All Build rule for target.
+CMakeFiles/test_file_db.dir/all: CMakeFiles/file_db.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles --progress-num=4,5,6 "Built target test_file_db"
+.PHONY : CMakeFiles/test_file_db.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_file_db.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles 6
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_file_db.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_file_db.dir/rule
+
+# Convenience name for target.
+test_file_db: CMakeFiles/test_file_db.dir/rule
+.PHONY : test_file_db
+
+# clean rule for target.
+CMakeFiles/test_file_db.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/clean
+.PHONY : CMakeFiles/test_file_db.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

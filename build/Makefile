@@ -129,6 +129,19 @@ file_db/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/build
 .PHONY : file_db/fast
 
+#=============================================================================
+# Target rules for targets named test_file_db
+
+# Build rule for target.
+test_file_db: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_file_db
+.PHONY : test_file_db
+
+# fast build rule for target.
+test_file_db/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/build
+.PHONY : test_file_db/fast
+
 # target to build an object file
 src/sys_utils.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/src/sys_utils.o
@@ -143,6 +156,36 @@ src/sys_utils.i:
 src/sys_utils.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/src/sys_utils.s
 .PHONY : src/sys_utils.s
+
+# target to build an object file
+src/test/test.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/src/test/test.o
+.PHONY : src/test/test.o
+
+# target to preprocess a source file
+src/test/test.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/src/test/test.i
+.PHONY : src/test/test.i
+
+# target to generate assembly for a file
+src/test/test.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/src/test/test.s
+.PHONY : src/test/test.s
+
+# target to build an object file
+src/test/unity.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/src/test/unity.o
+.PHONY : src/test/unity.o
+
+# target to preprocess a source file
+src/test/unity.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/src/test/unity.i
+.PHONY : src/test/unity.i
+
+# target to generate assembly for a file
+src/test/unity.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/src/test/unity.s
+.PHONY : src/test/unity.s
 
 # target to build an object file
 src/user_db.o:
@@ -168,9 +211,16 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... file_db"
+	@echo "... test_file_db"
 	@echo "... src/sys_utils.o"
 	@echo "... src/sys_utils.i"
 	@echo "... src/sys_utils.s"
+	@echo "... src/test/test.o"
+	@echo "... src/test/test.i"
+	@echo "... src/test/test.s"
+	@echo "... src/test/unity.o"
+	@echo "... src/test/unity.i"
+	@echo "... src/test/unity.s"
 	@echo "... src/user_db.o"
 	@echo "... src/user_db.i"
 	@echo "... src/user_db.s"

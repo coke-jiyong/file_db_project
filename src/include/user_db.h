@@ -10,7 +10,7 @@
 #include "sys_utils.h"
 #define FEMALE 'F'
 #define MALE 'M'
-#define USER_DB_MAGIC 0x4341544f
+#define USER_DB_MAGIC 0x64404883
 #define START_USER_ID 1
 #define MAX_USER 10
 #define AES128_KEY_LEN 16
@@ -39,4 +39,10 @@ extern header_conf conf;
 
 int init(void);
 int db_init(void);
+int db_import(void);
+int db_export(void);
+int cprng(uint8_t *buf, size_t len);
+int aes128_cbc_encrypt(const uint8_t *in, size_t in_len, uint8_t *out, size_t *out_len, const uint8_t key[16], const uint8_t iv[16]);
+int aes128_cbc_decrypt(const uint8_t *in, size_t in_len, uint8_t *out, size_t *out_len, const uint8_t key[16], const uint8_t iv[16]);
+
 #endif

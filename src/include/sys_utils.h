@@ -12,4 +12,5 @@ typedef struct {
 void init_config(header_conf * conf);
 int read_user(uint8_t ** db, size_t db_len);
 int write_user(const uint8_t *db, size_t db_len);
+
 #endif

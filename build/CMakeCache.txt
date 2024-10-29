@@ -246,6 +246,9 @@ file_db_BINARY_DIR:STATIC=/home/ubuntu/mytmp/mytest/flexibleMemberTest/build
 //Value Computed by CMake
 file_db_IS_TOP_LEVEL:STATIC=ON
 
+//Dependencies for the target
+file_db_LIB_DEPENDS:STATIC=general;OpenSSL::Crypto;
+
 //Value Computed by CMake
 file_db_SOURCE_DIR:STATIC=/home/ubuntu/mytmp/mytest/flexibleMemberTest
 

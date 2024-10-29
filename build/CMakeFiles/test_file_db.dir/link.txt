@@ -1,0 +1,1 @@
+/usr/bin/cc  -g -rdynamic CMakeFiles/test_file_db.dir/src/test/test.o CMakeFiles/test_file_db.dir/src/test/unity.o -o test_file_db  libfile_db.a /usr/lib/x86_64-linux-gnu/libcrypto.so
