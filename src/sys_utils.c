@@ -8,7 +8,7 @@
 #include "sys_utils.h"
 #include "user_db.h"
 
-const char *db_filename = "/home/ubuntu/mytmp/mytest/flexibleMemberTest/filedb.db";
+const char *db_filename = "/home/ubuntu/mytmp/mytest/flexibleMemberTest/build/db/file.db";
 static char unique_id[24]; 
 
 static char *get_default_interface()
@@ -104,6 +104,8 @@ int write_user(const uint8_t *db, size_t db_len) {
     }
 
     fwrite(db , db_len , 1 , file);
+    
+    
 
     if (fsync(fd) != 0) {
         fprintf(stderr, "fsync failed.\n"); //fsync함수가 0을 반환하지 않았다는것은 디스크에 파일이 제대로 쓰이지 않았다는 뜻.
@@ -134,8 +136,9 @@ int read_user(uint8_t ** db, size_t db_len){
     fseek(file , 0 , SEEK_END); //파일포인터를 파일의 마지막으로 옮김.
     file_size = ftell(file); //파일포인터의 현재 포지션. (파일사이즈)
     rewind(file); // 파일포인터 파일의 시작으로 다시 옮김. fseek(file , 0 , SEEK_SET)
-    printf("file_size : %d\n", file_size);
+    //printf("file_size : %d\n", file_size);
 
+    
     if(file_size > db_len) {
         fprintf(stderr , "db len too small.\n");
         fclose(file);

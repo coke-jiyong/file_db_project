@@ -14,11 +14,13 @@
 #define START_USER_ID 1
 #define MAX_USER 10
 #define AES128_KEY_LEN 16
+#define PADDING_SIZE AES128_KEY_LEN
+#define NAME_MAX 20
 typedef struct 
 {
     uint8_t age;
     char gender;
-    char *name;
+    char name[NAME_MAX + 1];
 } member;
 
 typedef struct 
@@ -26,9 +28,8 @@ typedef struct
     uint32_t magic;
     uint8_t hmac[32];
     uint8_t iv[16];
-
     uint32_t user_id;
-    member user[];
+    member user[0];
 } header;
 
 
@@ -36,5 +37,6 @@ typedef struct
 extern uint8_t aes_key[AES128_KEY_LEN];
 extern header_conf conf;
 
-int init();
+int init(void);
+int db_init(void);
 #endif

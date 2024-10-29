@@ -65,8 +65,9 @@ int init() {
         (uint8_t *)conf.info , strlen(conf.info),
         aes_key , sizeof(aes_key)
     );
+    //printf("aesKey: %s\n", aes_key);
 
-    db_init();
+    //db_init();
     // //test
     // for(int i = 0 ; i < 100 ; i ++) {
     //     hkdf(
@@ -110,22 +111,24 @@ int db_export(){
     }
 
     //iv 업데이트
-    *(uint64_t*)user_db->iv = *(uint64_t*)user_db->iv + 1;
+    //*(uint64_t*)user_db->iv = *(uint64_t*)user_db->iv + 1;
+    uint64_t * iv = (uint64_t*)&user_db->iv;
+    *iv = *iv + 1;
 
     //암호화
     uint8_t *enc;
     size_t size = sizeof(header) + MAX_USER * sizeof(member);
-    enc = (uint8_t*)malloc(size); // +패딩?
+    enc = (uint8_t*)malloc(size + PADDING_SIZE); // +패딩?
 
-    memset(enc , 0 , size);
+    memset(enc , 0 , size + PADDING_SIZE);
     memcpy(enc , user_db , sizeof(header));
 
     size_t enc_off = offsetof(header, user_id); //암호화 하지 않을 offset
-    size_t out_len = size - enc_off;
+    size_t out_len = size - enc_off + PADDING_SIZE;
 
-    int res = aes128_cbc_encrypt((uint8_t*)user_db + enc_off , out_len , //out_len + 16 > *out_len
+    int res = aes128_cbc_encrypt((uint8_t*)user_db + enc_off , size - enc_off , //out_len + 16 > *out_len
                                 enc + enc_off ,&out_len , 
-                                (uint8_t*)aes_key , (uint8_t*)user_db->iv);
+                                aes_key , user_db->iv);
 
     if(res != 0) {
         fprintf(stderr, "db encrypt error.\n");
@@ -136,10 +139,10 @@ int db_export(){
     //hmac업데이트
     size_t iv_offs = offsetof(header,iv);
     hmac_sha256(aes_key, AES128_KEY_LEN ,
-                enc + iv_offs , size - iv_offs ,
+                enc + iv_offs , out_len + enc_off - (int)iv_offs ,
                 enc + offsetof(header , hmac));
-
-    res = write_user(enc , size);
+    //printf("%d  %d", size+PADDING_SIZE , out_len + enc_off);
+    res = write_user(enc , out_len + enc_off);
     if (res != 0) {
         fprintf(stderr, "write user db error, maybe user doesn't have permission to write file\n");
         free(enc);
@@ -155,30 +158,35 @@ int db_export(){
 //db파일 user_db로 읽어옴.
 int db_import() {
     uint8_t *enc;
-    size_t size = sizeof(header) + MAX_USER * sizeof(member); //패딩을 ?
+    size_t size = sizeof(header) + MAX_USER * sizeof(member) + PADDING_SIZE; //패딩을 ?
     int res;
     uint8_t hash[32];
-
+    
     if (user_db != NULL) {
         free(user_db);
         user_db = NULL;
     }
 
     res = read_user(&enc , size);
+    printf("read size: %d\n", res);
+
     if(res <= 0) {
         return -1;
     }
 
     //magic 검사
-    header * check_header = (header*)enc;
+    header *check_header = (header*)enc;
+    
     if (check_header->magic != USER_DB_MAGIC) {
         fprintf(stderr, "db magin error.\n");
         free(enc);
         return -2;
     }
+
+    
     //hmac검사 iv~ hash 한 값
     size_t iv_off = offsetof(header , iv);
-    hmac_sha256(aes_key, AES128_KEY_LEN , check_header + iv_off , res - iv_off , hash);
+    hmac_sha256(aes_key, AES128_KEY_LEN , enc + iv_off , res - iv_off , hash);
     if (memcmp(check_header->hmac , hash , sizeof(hash)) != 0) {
         fprintf(stderr, "db hmac error.\n");
         free(enc);
@@ -212,10 +220,10 @@ int db_import() {
 int db_init(void)
 {
     int i = db_import();
-    //printf("db_import : %d\n", i);
     if (i != 0) {
         db_new();
     }
+    //printf("%d\n",i);
     return 0;
 }
 
@@ -234,6 +242,7 @@ int db_init(void)
 //     }
 // }
 int main(void) {
+
     // db_new();
     // uint64_t res = *(uint64_t*)user_db->iv + 8; //iv[16]중 뒤 8바이트는 cprng()함수로 인해 0이면 에러.
     // if(res == 0) {
@@ -256,15 +265,31 @@ int main(void) {
     // printf("%d\n", *(uint64_t*)user_db->iv);
     // free(user_db);
     
+    //export test
+    // init();
+    // db_new();
+    // user_db->user[0].age = 28;
+    // user_db->user[0].gender = MALE;
+    // strcpy(user_db->user[0].name ,"Park" );
+    // db_export();
+    // free(user_db);
+    // user_db = NULL;
+    
+    //import test
+    // init();
+    // int res = db_import();
+    // printf("db_import(): %d\n", res);
+    // printf("name: %s\n", user_db->user->name);
+    // printf("age: %d\n",user_db->user[0].age);
+    // printf("gender: %c\n",user_db->user[0].gender);
+    
+    // if(res == 0) {
+    //     //printf("name: %s\nage: %d\ngender: %c\n",user_db->user[0].name,user_db->user[0].age, user_db->user[0].gender);
+    //     free(user_db);
+    // }
 
 
-    init();
+    
 
-    user_db->user[0].name = strdup("park");
-    user_db->user[0].age = 27;
-    user_db->user[0].gender = MALE;
-
-    db_export();
-    free(user_db);
     return 0;
 }

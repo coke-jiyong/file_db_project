@@ -1,0 +1,249 @@
+==85039== Memcheck, a memory error detector
+==85039== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==85039== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==85039== Command: ./file_db
+==85039== Parent PID: 85038
+==85039== 
+==85039== Use of uninitialised value of size 8
+==85039==    at 0x48D09B8: AES_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x49D4D54: CRYPTO_cbc128_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x10B5D9: aes128_cbc_encrypt (user_db.c:43)
+==85039==    by 0x10B944: db_export (user_db.c:129)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Use of uninitialised value of size 8
+==85039==    at 0x48D09CB: AES_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x49D4D54: CRYPTO_cbc128_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x10B5D9: aes128_cbc_encrypt (user_db.c:43)
+==85039==    by 0x10B944: db_export (user_db.c:129)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Use of uninitialised value of size 8
+==85039==    at 0x48D09D2: AES_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x49D4D54: CRYPTO_cbc128_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x10B5D9: aes128_cbc_encrypt (user_db.c:43)
+==85039==    by 0x10B944: db_export (user_db.c:129)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Use of uninitialised value of size 8
+==85039==    at 0x48D09E4: AES_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x49D4D54: CRYPTO_cbc128_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x10B5D9: aes128_cbc_encrypt (user_db.c:43)
+==85039==    by 0x10B944: db_export (user_db.c:129)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Use of uninitialised value of size 8
+==85039==    at 0x48D09EB: AES_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x49D4D54: CRYPTO_cbc128_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x10B5D9: aes128_cbc_encrypt (user_db.c:43)
+==85039==    by 0x10B944: db_export (user_db.c:129)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Use of uninitialised value of size 8
+==85039==    at 0x48D0A04: AES_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x49D4D54: CRYPTO_cbc128_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x10B5D9: aes128_cbc_encrypt (user_db.c:43)
+==85039==    by 0x10B944: db_export (user_db.c:129)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Use of uninitialised value of size 8
+==85039==    at 0x48D0A1B: AES_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x49D4D54: CRYPTO_cbc128_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x10B5D9: aes128_cbc_encrypt (user_db.c:43)
+==85039==    by 0x10B944: db_export (user_db.c:129)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Use of uninitialised value of size 8
+==85039==    at 0x48D0A1F: AES_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x49D4D54: CRYPTO_cbc128_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x10B5D9: aes128_cbc_encrypt (user_db.c:43)
+==85039==    by 0x10B944: db_export (user_db.c:129)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Use of uninitialised value of size 8
+==85039==    at 0x48D0A38: AES_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x49D4D54: CRYPTO_cbc128_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x10B5D9: aes128_cbc_encrypt (user_db.c:43)
+==85039==    by 0x10B944: db_export (user_db.c:129)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Use of uninitialised value of size 8
+==85039==    at 0x48D0A43: AES_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x49D4D54: CRYPTO_cbc128_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x10B5D9: aes128_cbc_encrypt (user_db.c:43)
+==85039==    by 0x10B944: db_export (user_db.c:129)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Use of uninitialised value of size 8
+==85039==    at 0x48D0A47: AES_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x49D4D54: CRYPTO_cbc128_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x10B5D9: aes128_cbc_encrypt (user_db.c:43)
+==85039==    by 0x10B944: db_export (user_db.c:129)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Use of uninitialised value of size 8
+==85039==    at 0x48D0A64: AES_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x49D4D54: CRYPTO_cbc128_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x10B5D9: aes128_cbc_encrypt (user_db.c:43)
+==85039==    by 0x10B944: db_export (user_db.c:129)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Use of uninitialised value of size 8
+==85039==    at 0x48D09BC: AES_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x49D4D54: CRYPTO_cbc128_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x10B5D9: aes128_cbc_encrypt (user_db.c:43)
+==85039==    by 0x10B944: db_export (user_db.c:129)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Use of uninitialised value of size 8
+==85039==    at 0x48D0A0D: AES_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x49D4D54: CRYPTO_cbc128_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x10B5D9: aes128_cbc_encrypt (user_db.c:43)
+==85039==    by 0x10B944: db_export (user_db.c:129)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Use of uninitialised value of size 8
+==85039==    at 0x48D0A30: AES_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x49D4D54: CRYPTO_cbc128_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x10B5D9: aes128_cbc_encrypt (user_db.c:43)
+==85039==    by 0x10B944: db_export (user_db.c:129)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Use of uninitialised value of size 8
+==85039==    at 0x48D0A3F: AES_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x49D4D54: CRYPTO_cbc128_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x10B5D9: aes128_cbc_encrypt (user_db.c:43)
+==85039==    by 0x10B944: db_export (user_db.c:129)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Use of uninitialised value of size 8
+==85039==    at 0x48D09B8: AES_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x49D4D54: CRYPTO_cbc128_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x10B68C: aes128_cbc_encrypt (user_db.c:49)
+==85039==    by 0x10B944: db_export (user_db.c:129)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Use of uninitialised value of size 8
+==85039==    at 0x48D09EB: AES_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x49D4D54: CRYPTO_cbc128_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x10B68C: aes128_cbc_encrypt (user_db.c:49)
+==85039==    by 0x10B944: db_export (user_db.c:129)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Use of uninitialised value of size 8
+==85039==    at 0x48D0A43: AES_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x49D4D54: CRYPTO_cbc128_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x10B68C: aes128_cbc_encrypt (user_db.c:49)
+==85039==    by 0x10B944: db_export (user_db.c:129)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Use of uninitialised value of size 8
+==85039==    at 0x48D0A47: AES_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x49D4D54: CRYPTO_cbc128_encrypt (in /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1)
+==85039==    by 0x10B68C: aes128_cbc_encrypt (user_db.c:49)
+==85039==    by 0x10B944: db_export (user_db.c:129)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Syscall param write(buf) points to uninitialised byte(s)
+==85039==    at 0x4C3C297: write (write.c:26)
+==85039==    by 0x4BBCE8C: _IO_file_write@@GLIBC_2.2.5 (fileops.c:1181)
+==85039==    by 0x4BBE950: new_do_write (fileops.c:449)
+==85039==    by 0x4BBE950: _IO_new_do_write (fileops.c:426)
+==85039==    by 0x4BBE950: _IO_do_write@@GLIBC_2.2.5 (fileops.c:423)
+==85039==    by 0x4BBDF37: _IO_file_close_it@@GLIBC_2.2.5 (fileops.c:136)
+==85039==    by 0x4BAFF35: fclose@@GLIBC_2.2.5 (iofclose.c:53)
+==85039==    by 0x10AB09: write_user (sys_utils.c:115)
+==85039==    by 0x10B9EC: db_export (user_db.c:145)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039==  Address 0x4d4fbc4 is 4 bytes inside a block of size 4,096 alloc'd
+==85039==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==85039==    by 0x4BAFD03: _IO_file_doallocate (filedoalloc.c:101)
+==85039==    by 0x4BBFECF: _IO_doallocbuf (genops.c:347)
+==85039==    by 0x4BBEF2F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+==85039==    by 0x4BBD6B4: _IO_new_file_xsputn (fileops.c:1244)
+==85039==    by 0x4BBD6B4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+==85039==    by 0x4BB13C0: fwrite (iofwrite.c:39)
+==85039==    by 0x10AAB1: write_user (sys_utils.c:106)
+==85039==    by 0x10B9EC: db_export (user_db.c:145)
+==85039==    by 0x10BD60: main (user_db.c:273)
+==85039== 
+==85039== Invalid read of size 1
+==85039==    at 0x483EFA6: __strlen_sse2 (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==85039==    by 0x4BA6D14: __vfprintf_internal (vfprintf-internal.c:1688)
+==85039==    by 0x4B8FD3E: printf (printf.c:33)
+==85039==    by 0x10BDD9: main (user_db.c:280)
+==85039==  Address 0x4d4f820 is 0 bytes inside a block of size 5 free'd
+==85039==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==85039==    by 0x10BD73: main (user_db.c:274)
+==85039==  Block was alloc'd at
+==85039==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==85039==    by 0x4BCD38E: strdup (strdup.c:42)
+==85039==    by 0x10BD52: main (user_db.c:271)
+==85039== 
+==85039== Invalid read of size 1
+==85039==    at 0x483EFB4: __strlen_sse2 (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==85039==    by 0x4BA6D14: __vfprintf_internal (vfprintf-internal.c:1688)
+==85039==    by 0x4B8FD3E: printf (printf.c:33)
+==85039==    by 0x10BDD9: main (user_db.c:280)
+==85039==  Address 0x4d4f821 is 1 bytes inside a block of size 5 free'd
+==85039==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==85039==    by 0x10BD73: main (user_db.c:274)
+==85039==  Block was alloc'd at
+==85039==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==85039==    by 0x4BCD38E: strdup (strdup.c:42)
+==85039==    by 0x10BD52: main (user_db.c:271)
+==85039== 
+==85039== Invalid read of size 1
+==85039==    at 0x4BBD70C: _IO_new_file_xsputn (fileops.c:1219)
+==85039==    by 0x4BBD70C: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+==85039==    by 0x4BA50FB: __vfprintf_internal (vfprintf-internal.c:1688)
+==85039==    by 0x4B8FD3E: printf (printf.c:33)
+==85039==    by 0x10BDD9: main (user_db.c:280)
+==85039==  Address 0x4d4f823 is 3 bytes inside a block of size 5 free'd
+==85039==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==85039==    by 0x10BD73: main (user_db.c:274)
+==85039==  Block was alloc'd at
+==85039==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==85039==    by 0x4BCD38E: strdup (strdup.c:42)
+==85039==    by 0x10BD52: main (user_db.c:271)
+==85039== 
+==85039== Invalid read of size 1
+==85039==    at 0x48436A0: mempcpy (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==85039==    by 0x4BBD631: _IO_new_file_xsputn (fileops.c:1236)
+==85039==    by 0x4BBD631: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+==85039==    by 0x4BA50FB: __vfprintf_internal (vfprintf-internal.c:1688)
+==85039==    by 0x4B8FD3E: printf (printf.c:33)
+==85039==    by 0x10BDD9: main (user_db.c:280)
+==85039==  Address 0x4d4f823 is 3 bytes inside a block of size 5 free'd
+==85039==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==85039==    by 0x10BD73: main (user_db.c:274)
+==85039==  Block was alloc'd at
+==85039==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==85039==    by 0x4BCD38E: strdup (strdup.c:42)
+==85039==    by 0x10BD52: main (user_db.c:271)
+==85039== 
+==85039== Invalid read of size 1
+==85039==    at 0x48436B2: mempcpy (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==85039==    by 0x4BBD631: _IO_new_file_xsputn (fileops.c:1236)
+==85039==    by 0x4BBD631: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+==85039==    by 0x4BA50FB: __vfprintf_internal (vfprintf-internal.c:1688)
+==85039==    by 0x4B8FD3E: printf (printf.c:33)
+==85039==    by 0x10BDD9: main (user_db.c:280)
+==85039==  Address 0x4d4f821 is 1 bytes inside a block of size 5 free'd
+==85039==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==85039==    by 0x10BD73: main (user_db.c:274)
+==85039==  Block was alloc'd at
+==85039==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==85039==    by 0x4BCD38E: strdup (strdup.c:42)
+==85039==    by 0x10BD52: main (user_db.c:271)
+==85039== 
+==85039== 
+==85039== HEAP SUMMARY:
+==85039==     in use at exit: 0 bytes in 0 blocks
+==85039==   total heap usage: 47 allocs, 47 frees, 18,404 bytes allocated
+==85039== 
+==85039== All heap blocks were freed -- no leaks are possible
+==85039== 
+==85039== Use --track-origins=yes to see where uninitialised values come from
+==85039== For lists of detected and suppressed errors, rerun with: -s
+==85039== ERROR SUMMARY: 170 errors from 26 contexts (suppressed: 0 from 0)
