@@ -1,4 +1,4 @@
-CMakeFiles/file_db.dir/src/sys_utils.o: \
+CMakeFiles/file_db.dir/src/sys_utils.c.o: \
  /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/sys_utils.c \
  /usr/include/stdc-predef.h /usr/include/net/if.h /usr/include/features.h \
  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
@@ -75,7 +75,13 @@ CMakeFiles/file_db.dir/src/sys_utils.o: \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h /usr/include/string.h \
  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
- /usr/include/strings.h \
+ /usr/include/strings.h /usr/include/unistd.h \
+ /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+ /usr/include/x86_64-linux-gnu/bits/environments.h \
+ /usr/include/x86_64-linux-gnu/bits/confname.h \
+ /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
+ /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
+ /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
  /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/include/sys_utils.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \

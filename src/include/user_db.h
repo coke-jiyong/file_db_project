@@ -15,12 +15,12 @@
 #define MAX_USER 10
 #define AES128_KEY_LEN 16
 #define PADDING_SIZE AES128_KEY_LEN
-#define NAME_MAX 20
+#define NAME_LEN_MAX 20
 typedef struct 
 {
     uint8_t age;
     char gender;
-    char name[NAME_MAX + 1];
+    char name[NAME_LEN_MAX + 1];
 } member;
 
 typedef struct 

@@ -142,65 +142,125 @@ test_file_db/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/build
 .PHONY : test_file_db/fast
 
+src/hkdf.o: src/hkdf.c.o
+.PHONY : src/hkdf.o
+
 # target to build an object file
-src/sys_utils.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/src/sys_utils.o
+src/hkdf.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/src/hkdf.c.o
+.PHONY : src/hkdf.c.o
+
+src/hkdf.i: src/hkdf.c.i
+.PHONY : src/hkdf.i
+
+# target to preprocess a source file
+src/hkdf.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/src/hkdf.c.i
+.PHONY : src/hkdf.c.i
+
+src/hkdf.s: src/hkdf.c.s
+.PHONY : src/hkdf.s
+
+# target to generate assembly for a file
+src/hkdf.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/src/hkdf.c.s
+.PHONY : src/hkdf.c.s
+
+src/sys_utils.o: src/sys_utils.c.o
 .PHONY : src/sys_utils.o
 
-# target to preprocess a source file
-src/sys_utils.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/src/sys_utils.i
+# target to build an object file
+src/sys_utils.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/src/sys_utils.c.o
+.PHONY : src/sys_utils.c.o
+
+src/sys_utils.i: src/sys_utils.c.i
 .PHONY : src/sys_utils.i
 
-# target to generate assembly for a file
-src/sys_utils.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/src/sys_utils.s
+# target to preprocess a source file
+src/sys_utils.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/src/sys_utils.c.i
+.PHONY : src/sys_utils.c.i
+
+src/sys_utils.s: src/sys_utils.c.s
 .PHONY : src/sys_utils.s
 
-# target to build an object file
-src/test/test.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/src/test/test.o
+# target to generate assembly for a file
+src/sys_utils.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/src/sys_utils.c.s
+.PHONY : src/sys_utils.c.s
+
+src/test/test.o: src/test/test.c.o
 .PHONY : src/test/test.o
 
-# target to preprocess a source file
-src/test/test.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/src/test/test.i
+# target to build an object file
+src/test/test.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/src/test/test.c.o
+.PHONY : src/test/test.c.o
+
+src/test/test.i: src/test/test.c.i
 .PHONY : src/test/test.i
 
-# target to generate assembly for a file
-src/test/test.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/src/test/test.s
+# target to preprocess a source file
+src/test/test.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/src/test/test.c.i
+.PHONY : src/test/test.c.i
+
+src/test/test.s: src/test/test.c.s
 .PHONY : src/test/test.s
 
-# target to build an object file
-src/test/unity.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/src/test/unity.o
+# target to generate assembly for a file
+src/test/test.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/src/test/test.c.s
+.PHONY : src/test/test.c.s
+
+src/test/unity.o: src/test/unity.c.o
 .PHONY : src/test/unity.o
 
-# target to preprocess a source file
-src/test/unity.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/src/test/unity.i
+# target to build an object file
+src/test/unity.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/src/test/unity.c.o
+.PHONY : src/test/unity.c.o
+
+src/test/unity.i: src/test/unity.c.i
 .PHONY : src/test/unity.i
 
-# target to generate assembly for a file
-src/test/unity.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/src/test/unity.s
+# target to preprocess a source file
+src/test/unity.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/src/test/unity.c.i
+.PHONY : src/test/unity.c.i
+
+src/test/unity.s: src/test/unity.c.s
 .PHONY : src/test/unity.s
 
-# target to build an object file
-src/user_db.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/src/user_db.o
+# target to generate assembly for a file
+src/test/unity.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/src/test/unity.c.s
+.PHONY : src/test/unity.c.s
+
+src/user_db.o: src/user_db.c.o
 .PHONY : src/user_db.o
 
-# target to preprocess a source file
-src/user_db.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/src/user_db.i
+# target to build an object file
+src/user_db.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/src/user_db.c.o
+.PHONY : src/user_db.c.o
+
+src/user_db.i: src/user_db.c.i
 .PHONY : src/user_db.i
 
-# target to generate assembly for a file
-src/user_db.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/src/user_db.s
+# target to preprocess a source file
+src/user_db.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/src/user_db.c.i
+.PHONY : src/user_db.c.i
+
+src/user_db.s: src/user_db.c.s
 .PHONY : src/user_db.s
+
+# target to generate assembly for a file
+src/user_db.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/src/user_db.c.s
+.PHONY : src/user_db.c.s
 
 # Help Target
 help:
@@ -212,6 +272,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... file_db"
 	@echo "... test_file_db"
+	@echo "... src/hkdf.o"
+	@echo "... src/hkdf.i"
+	@echo "... src/hkdf.s"
 	@echo "... src/sys_utils.o"
 	@echo "... src/sys_utils.i"
 	@echo "... src/sys_utils.s"

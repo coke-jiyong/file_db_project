@@ -166,7 +166,7 @@ int db_import(void) {
     header *check_header = (header*)enc;
     
     if (check_header->magic != USER_DB_MAGIC) {
-        fprintf(stderr, "db magin error.\n");
+        fprintf(stderr, "db magic error.\n");
         free(enc);
         return -2;
     }

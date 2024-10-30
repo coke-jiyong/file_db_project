@@ -1,4 +1,4 @@
-CMakeFiles/test_file_db.dir/src/test/unity.o: \
+CMakeFiles/test_file_db.dir/src/test/unity.c.o: \
  /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/test/unity.c \
  /usr/include/stdc-predef.h \
  /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/test/unity.h \

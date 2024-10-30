@@ -1,15 +1,313 @@
-==170130== Memcheck, a memory error detector
-==170130== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==170130== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==170130== Command: ./test_file_db
-==170130== Parent PID: 170129
-==170130== 
-==170130== 
-==170130== HEAP SUMMARY:
-==170130==     in use at exit: 0 bytes in 0 blocks
-==170130==   total heap usage: 46 allocs, 46 frees, 32,531 bytes allocated
-==170130== 
-==170130== All heap blocks were freed -- no leaks are possible
-==170130== 
-==170130== For lists of detected and suppressed errors, rerun with: -s
-==170130== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==204089== Memcheck, a memory error detector
+==204089== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==204089== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==204089== Command: ./test_file_db
+==204089== Parent PID: 204088
+==204089== 
+==204089== Conditional jump or move depends on uninitialised value(s)
+==204089==    at 0x10CE68: UnityAssertEqualNumber (unity.c:720)
+==204089==    by 0x10B7F9: test_db_new (test.c:252)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF58: main (test.c:354)
+==204089== 
+==204089== Conditional jump or move depends on uninitialised value(s)
+==204089==    at 0x10CE68: UnityAssertEqualNumber (unity.c:720)
+==204089==    by 0x10BB0B: test_db_import_export (test.c:294)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x490634F: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F8A3: aes128_cbc_encrypt (user_db.c:43)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x4906354: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F8A3: aes128_cbc_encrypt (user_db.c:43)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x4906359: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F8A3: aes128_cbc_encrypt (user_db.c:43)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x490635E: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F8A3: aes128_cbc_encrypt (user_db.c:43)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x4906363: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F8A3: aes128_cbc_encrypt (user_db.c:43)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x490636B: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F8A3: aes128_cbc_encrypt (user_db.c:43)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x4906373: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F8A3: aes128_cbc_encrypt (user_db.c:43)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x4906378: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F8A3: aes128_cbc_encrypt (user_db.c:43)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x490639F: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F8A3: aes128_cbc_encrypt (user_db.c:43)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x49063B3: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F8A3: aes128_cbc_encrypt (user_db.c:43)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x49063BB: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F8A3: aes128_cbc_encrypt (user_db.c:43)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x49063D7: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F8A3: aes128_cbc_encrypt (user_db.c:43)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x49063DC: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F8A3: aes128_cbc_encrypt (user_db.c:43)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x49063E1: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F8A3: aes128_cbc_encrypt (user_db.c:43)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x49063E6: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F8A3: aes128_cbc_encrypt (user_db.c:43)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x49063EB: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F8A3: aes128_cbc_encrypt (user_db.c:43)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x490634F: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F956: aes128_cbc_encrypt (user_db.c:49)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x4906354: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F956: aes128_cbc_encrypt (user_db.c:49)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x4906359: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F956: aes128_cbc_encrypt (user_db.c:49)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x4906363: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F956: aes128_cbc_encrypt (user_db.c:49)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x490636B: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F956: aes128_cbc_encrypt (user_db.c:49)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x4906378: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F956: aes128_cbc_encrypt (user_db.c:49)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x49063BB: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F956: aes128_cbc_encrypt (user_db.c:49)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x49063D7: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F956: aes128_cbc_encrypt (user_db.c:49)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x49063E1: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F956: aes128_cbc_encrypt (user_db.c:49)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Use of uninitialised value of size 8
+==204089==    at 0x49063EB: _x86_64_AES_encrypt_compact (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x490748A: AES_cbc_encrypt (in /usr/local/lib64/libcrypto.so.3)
+==204089==    by 0x10F956: aes128_cbc_encrypt (user_db.c:49)
+==204089==    by 0x10FC13: db_export (user_db.c:118)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Syscall param write(buf) points to uninitialised byte(s)
+==204089==    at 0x4ECD297: write (write.c:26)
+==204089==    by 0x4E4DE8C: _IO_file_write@@GLIBC_2.2.5 (fileops.c:1181)
+==204089==    by 0x4E4F950: new_do_write (fileops.c:449)
+==204089==    by 0x4E4F950: _IO_new_do_write (fileops.c:426)
+==204089==    by 0x4E4F950: _IO_do_write@@GLIBC_2.2.5 (fileops.c:423)
+==204089==    by 0x4E4EF37: _IO_file_close_it@@GLIBC_2.2.5 (fileops.c:136)
+==204089==    by 0x4E40F35: fclose@@GLIBC_2.2.5 (iofclose.c:53)
+==204089==    by 0x10F4A6: write_user (sys_utils.c:116)
+==204089==    by 0x10FCBB: db_export (user_db.c:134)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089==  Address 0x5127a44 is 4 bytes inside a block of size 4,096 alloc'd
+==204089==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==204089==    by 0x4E40D03: _IO_file_doallocate (filedoalloc.c:101)
+==204089==    by 0x4E50ECF: _IO_doallocbuf (genops.c:347)
+==204089==    by 0x4E4FF2F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+==204089==    by 0x4E4E6B4: _IO_new_file_xsputn (fileops.c:1244)
+==204089==    by 0x4E4E6B4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+==204089==    by 0x4E423C0: fwrite (iofwrite.c:39)
+==204089==    by 0x10F458: write_user (sys_utils.c:107)
+==204089==    by 0x10FCBB: db_export (user_db.c:134)
+==204089==    by 0x10BB3B: test_db_import_export (test.c:299)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Conditional jump or move depends on uninitialised value(s)
+==204089==    at 0x10CE68: UnityAssertEqualNumber (unity.c:720)
+==204089==    by 0x10BB85: test_db_import_export (test.c:300)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Conditional jump or move depends on uninitialised value(s)
+==204089==    at 0x10CE68: UnityAssertEqualNumber (unity.c:720)
+==204089==    by 0x10BBD4: test_db_import_export (test.c:302)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Conditional jump or move depends on uninitialised value(s)
+==204089==    at 0x10E98C: UnityAssertEqualMemory (unity.c:1796)
+==204089==    by 0x10BC6D: test_db_import_export (test.c:307)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== Conditional jump or move depends on uninitialised value(s)
+==204089==    at 0x10E98C: UnityAssertEqualMemory (unity.c:1796)
+==204089==    by 0x10BCAB: test_db_import_export (test.c:308)
+==204089==    by 0x10EDF5: UnityDefaultTestRun (unity.c:2203)
+==204089==    by 0x10BF76: main (test.c:355)
+==204089== 
+==204089== 
+==204089== HEAP SUMMARY:
+==204089==     in use at exit: 0 bytes in 0 blocks
+==204089==   total heap usage: 7,287 allocs, 7,287 frees, 862,794 bytes allocated
+==204089== 
+==204089== All heap blocks were freed -- no leaks are possible
+==204089== 
+==204089== Use --track-origins=yes to see where uninitialised values come from
+==204089== For lists of detected and suppressed errors, rerun with: -s
+==204089== ERROR SUMMARY: 712 errors from 33 contexts (suppressed: 0 from 0)

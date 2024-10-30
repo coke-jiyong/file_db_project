@@ -69,47 +69,63 @@ include CMakeFiles/file_db.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/file_db.dir/flags.make
 
-CMakeFiles/file_db.dir/src/sys_utils.o: CMakeFiles/file_db.dir/flags.make
-CMakeFiles/file_db.dir/src/sys_utils.o: /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/sys_utils.c
-CMakeFiles/file_db.dir/src/sys_utils.o: CMakeFiles/file_db.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/file_db.dir/src/sys_utils.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/file_db.dir/src/sys_utils.o -MF CMakeFiles/file_db.dir/src/sys_utils.o.d -o CMakeFiles/file_db.dir/src/sys_utils.o -c /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/sys_utils.c
+CMakeFiles/file_db.dir/src/sys_utils.c.o: CMakeFiles/file_db.dir/flags.make
+CMakeFiles/file_db.dir/src/sys_utils.c.o: /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/sys_utils.c
+CMakeFiles/file_db.dir/src/sys_utils.c.o: CMakeFiles/file_db.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/file_db.dir/src/sys_utils.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/file_db.dir/src/sys_utils.c.o -MF CMakeFiles/file_db.dir/src/sys_utils.c.o.d -o CMakeFiles/file_db.dir/src/sys_utils.c.o -c /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/sys_utils.c
 
-CMakeFiles/file_db.dir/src/sys_utils.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/file_db.dir/src/sys_utils.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/sys_utils.c > CMakeFiles/file_db.dir/src/sys_utils.i
+CMakeFiles/file_db.dir/src/sys_utils.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/file_db.dir/src/sys_utils.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/sys_utils.c > CMakeFiles/file_db.dir/src/sys_utils.c.i
 
-CMakeFiles/file_db.dir/src/sys_utils.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/file_db.dir/src/sys_utils.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/sys_utils.c -o CMakeFiles/file_db.dir/src/sys_utils.s
+CMakeFiles/file_db.dir/src/sys_utils.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/file_db.dir/src/sys_utils.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/sys_utils.c -o CMakeFiles/file_db.dir/src/sys_utils.c.s
 
-CMakeFiles/file_db.dir/src/user_db.o: CMakeFiles/file_db.dir/flags.make
-CMakeFiles/file_db.dir/src/user_db.o: /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/user_db.c
-CMakeFiles/file_db.dir/src/user_db.o: CMakeFiles/file_db.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/file_db.dir/src/user_db.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/file_db.dir/src/user_db.o -MF CMakeFiles/file_db.dir/src/user_db.o.d -o CMakeFiles/file_db.dir/src/user_db.o -c /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/user_db.c
+CMakeFiles/file_db.dir/src/user_db.c.o: CMakeFiles/file_db.dir/flags.make
+CMakeFiles/file_db.dir/src/user_db.c.o: /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/user_db.c
+CMakeFiles/file_db.dir/src/user_db.c.o: CMakeFiles/file_db.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/file_db.dir/src/user_db.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/file_db.dir/src/user_db.c.o -MF CMakeFiles/file_db.dir/src/user_db.c.o.d -o CMakeFiles/file_db.dir/src/user_db.c.o -c /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/user_db.c
 
-CMakeFiles/file_db.dir/src/user_db.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/file_db.dir/src/user_db.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/user_db.c > CMakeFiles/file_db.dir/src/user_db.i
+CMakeFiles/file_db.dir/src/user_db.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/file_db.dir/src/user_db.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/user_db.c > CMakeFiles/file_db.dir/src/user_db.c.i
 
-CMakeFiles/file_db.dir/src/user_db.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/file_db.dir/src/user_db.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/user_db.c -o CMakeFiles/file_db.dir/src/user_db.s
+CMakeFiles/file_db.dir/src/user_db.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/file_db.dir/src/user_db.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/user_db.c -o CMakeFiles/file_db.dir/src/user_db.c.s
+
+CMakeFiles/file_db.dir/src/hkdf.c.o: CMakeFiles/file_db.dir/flags.make
+CMakeFiles/file_db.dir/src/hkdf.c.o: /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/hkdf.c
+CMakeFiles/file_db.dir/src/hkdf.c.o: CMakeFiles/file_db.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/file_db.dir/src/hkdf.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/file_db.dir/src/hkdf.c.o -MF CMakeFiles/file_db.dir/src/hkdf.c.o.d -o CMakeFiles/file_db.dir/src/hkdf.c.o -c /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/hkdf.c
+
+CMakeFiles/file_db.dir/src/hkdf.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/file_db.dir/src/hkdf.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/hkdf.c > CMakeFiles/file_db.dir/src/hkdf.c.i
+
+CMakeFiles/file_db.dir/src/hkdf.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/file_db.dir/src/hkdf.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ubuntu/mytmp/mytest/flexibleMemberTest/src/hkdf.c -o CMakeFiles/file_db.dir/src/hkdf.c.s
 
 # Object files for target file_db
 file_db_OBJECTS = \
-"CMakeFiles/file_db.dir/src/sys_utils.o" \
-"CMakeFiles/file_db.dir/src/user_db.o"
+"CMakeFiles/file_db.dir/src/sys_utils.c.o" \
+"CMakeFiles/file_db.dir/src/user_db.c.o" \
+"CMakeFiles/file_db.dir/src/hkdf.c.o"
 
 # External object files for target file_db
 file_db_EXTERNAL_OBJECTS =
 
-libfile_db.a: CMakeFiles/file_db.dir/src/sys_utils.o
-libfile_db.a: CMakeFiles/file_db.dir/src/user_db.o
+libfile_db.a: CMakeFiles/file_db.dir/src/sys_utils.c.o
+libfile_db.a: CMakeFiles/file_db.dir/src/user_db.c.o
+libfile_db.a: CMakeFiles/file_db.dir/src/hkdf.c.o
 libfile_db.a: CMakeFiles/file_db.dir/build.make
 libfile_db.a: CMakeFiles/file_db.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C static library libfile_db.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C static library libfile_db.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/file_db.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/file_db.dir/link.txt --verbose=$(VERBOSE)
 

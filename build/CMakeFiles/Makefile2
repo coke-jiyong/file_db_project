@@ -83,12 +83,12 @@ clean: CMakeFiles/test_file_db.dir/clean
 CMakeFiles/file_db.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles --progress-num=1,2,3 "Built target file_db"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles --progress-num=1,2,3,4 "Built target file_db"
 .PHONY : CMakeFiles/file_db.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/file_db.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/file_db.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles 0
 .PHONY : CMakeFiles/file_db.dir/rule
@@ -109,12 +109,12 @@ CMakeFiles/file_db.dir/clean:
 CMakeFiles/test_file_db.dir/all: CMakeFiles/file_db.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles --progress-num=4,5,6 "Built target test_file_db"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles --progress-num=5,6,7 "Built target test_file_db"
 .PHONY : CMakeFiles/test_file_db.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_file_db.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_file_db.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/mytmp/mytest/flexibleMemberTest/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_file_db.dir/rule

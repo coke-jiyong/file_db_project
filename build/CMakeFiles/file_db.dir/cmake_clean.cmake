@@ -1,8 +1,10 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/file_db.dir/src/sys_utils.o"
-  "CMakeFiles/file_db.dir/src/sys_utils.o.d"
-  "CMakeFiles/file_db.dir/src/user_db.o"
-  "CMakeFiles/file_db.dir/src/user_db.o.d"
+  "CMakeFiles/file_db.dir/src/hkdf.c.o"
+  "CMakeFiles/file_db.dir/src/hkdf.c.o.d"
+  "CMakeFiles/file_db.dir/src/sys_utils.c.o"
+  "CMakeFiles/file_db.dir/src/sys_utils.c.o.d"
+  "CMakeFiles/file_db.dir/src/user_db.c.o"
+  "CMakeFiles/file_db.dir/src/user_db.c.o.d"
   "libfile_db.a"
   "libfile_db.pdb"
 )

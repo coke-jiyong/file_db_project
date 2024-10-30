@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/ubuntu/mytmp/mytest/flexibleMemberTest/src/test/test.c" "CMakeFiles/test_file_db.dir/src/test/test.o" "gcc" "CMakeFiles/test_file_db.dir/src/test/test.o.d"
-  "/home/ubuntu/mytmp/mytest/flexibleMemberTest/src/test/unity.c" "CMakeFiles/test_file_db.dir/src/test/unity.o" "gcc" "CMakeFiles/test_file_db.dir/src/test/unity.o.d"
+  "/home/ubuntu/mytmp/mytest/flexibleMemberTest/src/test/test.c" "CMakeFiles/test_file_db.dir/src/test/test.c.o" "gcc" "CMakeFiles/test_file_db.dir/src/test/test.c.o.d"
+  "/home/ubuntu/mytmp/mytest/flexibleMemberTest/src/test/unity.c" "CMakeFiles/test_file_db.dir/src/test/unity.c.o" "gcc" "CMakeFiles/test_file_db.dir/src/test/unity.c.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
