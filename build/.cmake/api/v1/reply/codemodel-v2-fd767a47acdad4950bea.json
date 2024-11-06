@@ -6,10 +6,9 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
-						"string" : "3.29.1"
+						"string" : "3.16.0"
 					},
 					"projectIndex" : 0,
 					"source" : ".",
@@ -41,14 +40,14 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "file_db::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-file_db-e2b9f4630a418e1f8d2e.json",
+					"jsonFile" : "target-file_db-f1efb8a2481adb923222.json",
 					"name" : "file_db",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "test_file_db::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-test_file_db-d1c3845c24b3d91f3f84.json",
+					"jsonFile" : "target-test_file_db-b7ff7943da51bf1a3bb5.json",
 					"name" : "test_file_db",
 					"projectIndex" : 0
 				}
@@ -58,12 +57,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/ubuntu/mytmp/mytest/flexibleMemberTest/build",
-		"source" : "/home/ubuntu/mytmp/mytest/flexibleMemberTest"
+		"build" : "/home/ubuntu/file_db_project/build",
+		"source" : "/home/ubuntu/file_db_project"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 7
+		"minor" : 0
 	}
 }
