@@ -118,7 +118,7 @@ int db_export(void){
     int res = aes128_cbc_encrypt((uint8_t*)user_db + enc_off , size - enc_off , //out_len + 16 > *out_len
                                 enc + enc_off ,&out_len , 
                                 aes_key , user_db->iv);
-
+    
     if(res != 0) {
         fprintf(stderr, "db encrypt error.\n");
         free(enc);
@@ -155,7 +155,6 @@ int db_import(void) {
         free(user_db);
         user_db = NULL;
     }
-
     res = read_user(&enc , size);
 
     if(res <= 0) {
@@ -215,6 +214,96 @@ int db_init(void)
     return 0;
 }
 
+member* db_add_user(const char * name, char gender , uint8_t age) {
+    
+    if (user_db == NULL || name == NULL || (gender != MALE && gender != FEMALE) || age < 0) {
+        return NULL;
+    }
+
+    //중복 검사
+    for (int i = 0 ; i < MAX_USER ; i ++) {    
+        if(user_db->user[i].name[0] == '\0') { // 해주지 않으면 밑의 strcmp 에러.
+            continue;
+        }
+        if(!strcmp(user_db->user[i].name, name)) {
+            return NULL;
+        }
+    }
+
+    for (int i = 0 ; i < MAX_USER ; i ++) {
+        if(user_db->user[i].name[0] == '\0') {
+            memset(&user_db->user[i] , 0 , sizeof(member));
+            strncpy(user_db->user[i].name , name, strlen(name));
+            user_db->user[i].age = age;
+            user_db->user[i].gender = gender;
+            user_db->user[i].id = user_db->user_id++;
+
+            return &user_db->user[i];
+        }
+    }
+
+    return NULL;
+}
+
+
+int db_total_user(void) {
+    if(user_db == NULL) {
+        return 0;
+    }
+    int cnt = 0;
+    for(int i = 0 ; i < MAX_USER ; i ++) {
+        if (user_db->user[i].name[0] != '\0') {
+            cnt ++;
+        }
+    }
+    return cnt;
+}
+
+int db_delete_user(const char * name) {
+    if(user_db == NULL || name == NULL) {
+        return -1;
+    }
+    for(int i = 0 ; i < MAX_USER ; i ++) {
+        if(user_db->user[i].name[0] == '\0') {
+            continue;
+        }
+        if(!strcmp(user_db->user[i].name, name)) {
+            memset(&user_db->user[i] , 0 , sizeof(member));
+            return 0;
+        }
+    }
+    return -1;
+}
+
+member * db_find_user_by_name(const char * name) {
+    if(user_db == NULL || name == NULL) {
+        return NULL;
+    }    
+    for(int i = 0 ; i < MAX_USER ; i ++) {
+        if(user_db->user[i].name[0] == '\0') {
+            continue;
+        }
+        if(!strcmp(user_db->user[i].name, name)) {
+            return &user_db->user[i];
+        }
+    }
+    return NULL;
+}
+
+member * db_find_user_by_id(uint32_t id) {
+    if(user_db == NULL) {
+        return NULL;
+    }    
+    for(int i = 0 ; i < MAX_USER ; i ++) {
+        if(user_db->user[i].name[0] == '\0') {
+            continue;
+        }
+        if(user_db->user[i].id == id) {
+            return &user_db->user[i];
+        }
+    }    
+    return NULL;
+}
 // member *db_add_user(char *name , char gender, uint8_t age) {
 //     if (name == NULL || user_db == NULL) {
 //         return NULL;

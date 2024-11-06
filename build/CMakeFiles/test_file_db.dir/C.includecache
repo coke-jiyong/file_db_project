@@ -55,6 +55,8 @@ openssl/evp.h
 -
 openssl/kdf.h
 -
+openssl/hmac.h
+-
 
 /home/ubuntu/file_db_project/src/test/unity.h
 unity_internals.h

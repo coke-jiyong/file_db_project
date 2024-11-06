@@ -6,6 +6,7 @@
 #include <sys/stat.h>
 #include <openssl/evp.h>
 #include <openssl/kdf.h>
+#include <openssl/hmac.h>
 void setUp(void) {}
 
 void tearDown(void) {}
@@ -22,26 +23,30 @@ void tearDown(void) {}
 // }
 
 static void openssl_hmac_sha256(const unsigned char *key, int key_len, const unsigned char *data, size_t data_len, unsigned char hash[32])
-{
+{   
+    if ((key == NULL && key_len != 0) || (key != NULL && key_len == 0)) {
+        fprintf(stderr, "Invalid key or key length\n");
+        return;
+    }
+
     unsigned int len = 32;
     HMAC_CTX *ctx = HMAC_CTX_new();
     if (ctx == NULL) {
         fprintf(stderr , "HMAC_CTX_new() failed.");
         return;
     }
-
     if (HMAC_Init_ex(ctx, key, key_len, EVP_sha256(), NULL) != 1) {
         fprintf(stderr , "HMAC_Init_ex() failed.");
         HMAC_CTX_free(ctx);
         return;
     }
-
+    
     if (HMAC_Update(ctx, data, data_len) != 1) {
         fprintf(stderr , "HMAC_Update() failed.");
         HMAC_CTX_free(ctx);
         return;
     }
-
+    
     if (HMAC_Final(ctx, hash, &len) != 1) {
         fprintf(stderr , "HMAC_Final() failed.");
         HMAC_CTX_free(ctx);
@@ -137,42 +142,22 @@ void test_read_write_user(void) {
 }
 
 void test_hamc(void) {
-    // unsigned char *key1 = "short key";
-    // unsigned char key2[255];
-    // unsigned char * data = "test is so Hard......";
 
-    // unsigned char hash1[32];
-    // unsigned char hash2[32];
-
-    // //cprng(key2, sizeof(key2));
-
-    // hmac_sha256(key1 , strlen(key1), data , strlen(data) , hash1);
-    // openssl_hmac_sha256(key1 , strlen(key1), data , strlen(data) , hash2);
-    // TEST_ASSERT_EQUAL_MEMORY(hash1,hash2,sizeof(hash1));
-
-    // memset(hash1, 0 , sizeof(hash1));
-    // memset(hash2, 0 , sizeof(hash2));
-
-    // hmac_sha256(key2 , strlen(key2), data , strlen(data) , hash1);
-    // openssl_hmac_sha256(key2 , strlen(key2), data , strlen(data) , hash2);
-    // TEST_ASSERT_EQUAL_MEMORY(hash1,hash2,sizeof(hash1));
-
-
-    unsigned char *key_short = "keyshort";
+    const unsigned char *key_short = "keyshort";
     unsigned char key_long[128];
-    unsigned char *data = "dummy data short";
+    const unsigned char *data = "dummy data short";
     unsigned char hash1[32];
     unsigned char hash2[32];
 
-    //generate_random_key(key_long, sizeof(key_long));
+    cprng(key_long, sizeof(key_long));
 
     hmac_sha256(key_short, strlen(key_short), data, strlen(data), hash1);
     openssl_hmac_sha256(key_short, strlen(key_short), data, strlen(data), hash2);
-    //TEST_ASSERT_EQUAL_MEMORY(hash1, hash2, sizeof(hash1));
+    TEST_ASSERT_EQUAL_MEMORY(hash1, hash2, sizeof(hash1));
 
-    // hmac_sha256(key_long, strlen(key_long), data, strlen(data), hash1);
-    // openssl_hmac_sha256(key_long, strlen(key_long), data, strlen(data), hash2);
-    // TEST_ASSERT_EQUAL_MEMORY(hash1, hash2, sizeof(hash1));
+    hmac_sha256(key_long, strlen(key_long), data, strlen(data), hash1);
+    openssl_hmac_sha256(key_long, strlen(key_long), data, strlen(data), hash2);
+    TEST_ASSERT_EQUAL_MEMORY(hash1, hash2, sizeof(hash1));
 }
 
 void test_hkdf(void) {
@@ -259,22 +244,21 @@ void test_db_new(void) {
 
 void test_db_import_export(void) {
 
-    hkdf(
-        (uint8_t *)conf.passphrase , strlen(conf.passphrase) , 
-        (uint8_t *)conf.unique_id , strlen(conf.unique_id),
-        (uint8_t *)conf.info , strlen(conf.info),
-        aes_key , sizeof(aes_key)
-    );
-
+    // hkdf(
+    //     (uint8_t *)conf.passphrase , strlen(conf.passphrase) , 
+    //     (uint8_t *)conf.unique_id , strlen(conf.unique_id),
+    //     (uint8_t *)conf.info , strlen(conf.info),
+    //     aes_key , sizeof(aes_key)
+    // );
+    //printf("%s\n", aes_key);
     const char *bak = db_filename;
-    db_filename = "/home/ubuntu/mytmp/mytest/flexibleMemberTest/build/db/test.db";
+    db_filename = "/home/ubuntu/file_db_project/build/db/test.db";
     remove(db_filename);
     TEST_ASSERT_EQUAL(-1 , db_import());
 
     size_t size = sizeof(header) + sizeof(member) * MAX_USER;
     uint8_t * buf = (uint8_t*)malloc(size+16);
     memset(buf , 0 , size+16);
-    
     write_user(buf,size); //test db에 파일 쓰기
     TEST_ASSERT_EQUAL(-2 , db_import()); //db magic error 출력
 
@@ -338,21 +322,102 @@ void test_db_import_export(void) {
 
     free(buf);
     free(user_db); //hmac 검사까지 완료돼야 free() 가능
+    user_db = NULL; // NULL 처리하지 않으면 db_import 시 double free
     db_filename = bak;
 }
 
+void test_db_user(void) {
+    const char * bak = db_filename;
+    db_filename = "/home/ubuntu/file_db_project/build/db/test.db";
+
+    remove(db_filename);
+    TEST_ASSERT_EQUAL(-1 ,db_import());
+    init();
+
+    //test add_user
+    for(int i = 0 ; i < MAX_USER ; i ++) {
+        char name[20];
+        sprintf(name , "User%d", i);
+        member * user;
+        if(i % 2 ==0) {
+            user = db_add_user(name, MALE , i + 20);    
+        } else {
+            user = db_add_user(name, FEMALE , i + 20);    
+        }
+        TEST_ASSERT_NOT_EQUAL(NULL, user);
+        TEST_ASSERT_EQUAL(START_USER_ID + i , user->id);
+        TEST_ASSERT_EQUAL_STRING(name , user->name);
+        TEST_ASSERT_EQUAL_PTR(&user_db->user[i] , user);
+        TEST_ASSERT_EQUAL(i + 1, db_total_user());
+    }
+    TEST_ASSERT_EQUAL(NULL , db_add_user("User10", MALE , 30));
+
+    //test delete_user
+    TEST_ASSERT_EQUAL(0 , db_delete_user("User5"));
+    TEST_ASSERT_EQUAL(-1 , db_delete_user("User5"));
+    TEST_ASSERT_EQUAL(MAX_USER-1 , db_total_user());
+
+    TEST_ASSERT_EQUAL(0 , db_delete_user("User0"));
+    TEST_ASSERT_EQUAL(MAX_USER-2 , db_total_user());
+
+    TEST_ASSERT_EQUAL(-1 , db_delete_user("User15"));
+    TEST_ASSERT_EQUAL(MAX_USER-2 , db_total_user());
+
+    // test find
+    for(int i = 0 ; i < MAX_USER ; i ++) {
+        char name[20];
+        sprintf(name , "User%d", i);
+
+        member * user = db_find_user_by_name(name);
+        if (i == 0 || i == 5) {
+            TEST_ASSERT_EQUAL(NULL, user);
+        } else {
+            TEST_ASSERT_NOT_EQUAL(NULL , user);
+            TEST_ASSERT_EQUAL_PTR(&user_db->user[i], user);
+        }
+
+        user = db_find_user_by_id(START_USER_ID + i);
+        if (i == 0 || i == 5) {
+            TEST_ASSERT_EQUAL(NULL, user);
+        } else {
+            TEST_ASSERT_NOT_EQUAL(NULL , user);
+            TEST_ASSERT_EQUAL_PTR(&user_db->user[i], user);
+        }
+    }
+
+    size_t size = sizeof(header) + sizeof(member) * MAX_USER;
+    uint8_t * buf = (uint8_t *)malloc(size);
+    TEST_ASSERT_NOT_EQUAL(NULL, buf);
+    memcpy(buf, user_db, size); //buf 에 memcpy 후 export , import
+
+    TEST_ASSERT_EQUAL(0 , db_export());
+    TEST_ASSERT_EQUAL(0 , db_import());
+    size_t offset = offsetof(header, user_id);
+    TEST_ASSERT_EQUAL_MEMORY(buf + offset , &user_db->user_id, size-offset);
+    TEST_ASSERT_EQUAL(*(uint32_t*)(buf + offset) , user_db->user_id);
+    TEST_ASSERT_EQUAL(0 , db_export());
+    free(user_db);
+    user_db = NULL;
+    TEST_ASSERT_EQUAL(0 , db_import());
+    TEST_ASSERT_EQUAL_MEMORY(buf + offset , &user_db->user_id, size-offset);
+
+    free(buf);
+    free(user_db);
+    user_db = NULL;
+    db_filename = bak;
+}
 
 
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_init_config);
     RUN_TEST(test_read_write_user);
-    //RUN_TEST(test_hamc);
+    RUN_TEST(test_hamc);
     RUN_TEST(test_hkdf);
     RUN_TEST(test_aes_cbc);
     
-
     RUN_TEST(test_db_new);
     RUN_TEST(test_db_import_export);
-    
+    RUN_TEST(test_db_user);
+    return UNITY_END();
 }
