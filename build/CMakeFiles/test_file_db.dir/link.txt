@@ -1,1 +1,1 @@
-/usr/bin/cc  -g CMakeFiles/test_file_db.dir/src/test/test.c.o CMakeFiles/test_file_db.dir/src/test/unity.c.o -o test_file_db  -Wl,-rpath,/usr/local/lib64 libfile_db.a /usr/local/lib64/libssl.so /usr/local/lib64/libcrypto.so
+/usr/bin/cc  -g   CMakeFiles/test_file_db.dir/src/test/test.c.o CMakeFiles/test_file_db.dir/src/test/unity.c.o  -o test_file_db  libfile_db.a -lcrypto 

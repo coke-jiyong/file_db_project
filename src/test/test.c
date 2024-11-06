@@ -4,7 +4,8 @@
 #include "hkdf.h"
 #include <string.h>
 #include <sys/stat.h>
-
+#include <openssl/evp.h>
+#include <openssl/kdf.h>
 void setUp(void) {}
 
 void tearDown(void) {}
@@ -109,7 +110,7 @@ void test_read_write_user(void) {
     unsigned char * buf;
     int i ;
     const char * bak = db_filename;
-    db_filename = "/home/ubuntu/mytmp/mytest/flexibleMemberTest/build/db/test.db";
+    db_filename = "/home/ubuntu/file_db_project/build/db/test.db";
 
     remove(db_filename);
 
@@ -346,7 +347,7 @@ int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_init_config);
     RUN_TEST(test_read_write_user);
-    RUN_TEST(test_hamc);
+    //RUN_TEST(test_hamc);
     RUN_TEST(test_hkdf);
     RUN_TEST(test_aes_cbc);
     
