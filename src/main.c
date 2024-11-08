@@ -37,7 +37,7 @@ void print_user_list(void){
         return;
     }
     printf("ID\tname\tage\tgender\n");
-    for(int i = 0 ; i < total ; i ++) {
+    for(int i = 0 ; i < MAX_USER ; i ++) {
         member*user;
         user = db_find_user_by_index(i);
         if(user == NULL) {
