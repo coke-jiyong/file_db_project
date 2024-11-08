@@ -9,7 +9,7 @@
 #include "sys_utils.h"
 #include "user_db.h"
 
-const char *db_filename = "/home/ubuntu/file_db_project/build/db/file.db";
+const char *db_filename = "/etc/file.db";
 static char unique_id[24]; 
 
 static char *get_default_interface()
@@ -130,7 +130,6 @@ int read_user(uint8_t ** db, size_t db_len){
 
     file = fopen(db_filename , "rb"); //read바이너리 모드로 파일 오픈
     if(file == NULL) {
-        fprintf(stderr , "fopen failed.\n");
         return -1;
     }
 

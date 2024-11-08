@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named db_cli
+
+# Build rule for target.
+db_cli: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 db_cli
+.PHONY : db_cli
+
+# fast build rule for target.
+db_cli/fast:
+	$(MAKE) -f CMakeFiles/db_cli.dir/build.make CMakeFiles/db_cli.dir/build
+.PHONY : db_cli/fast
+
+#=============================================================================
 # Target rules for targets named test_file_db
 
 # Build rule for target.
@@ -162,6 +175,33 @@ src/hkdf.s: src/hkdf.c.s
 src/hkdf.c.s:
 	$(MAKE) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/src/hkdf.c.s
 .PHONY : src/hkdf.c.s
+
+src/main.o: src/main.c.o
+
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.c.o:
+	$(MAKE) -f CMakeFiles/db_cli.dir/build.make CMakeFiles/db_cli.dir/src/main.c.o
+.PHONY : src/main.c.o
+
+src/main.i: src/main.c.i
+
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.c.i:
+	$(MAKE) -f CMakeFiles/db_cli.dir/build.make CMakeFiles/db_cli.dir/src/main.c.i
+.PHONY : src/main.c.i
+
+src/main.s: src/main.c.s
+
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.c.s:
+	$(MAKE) -f CMakeFiles/db_cli.dir/build.make CMakeFiles/db_cli.dir/src/main.c.s
+.PHONY : src/main.c.s
 
 src/sys_utils.o: src/sys_utils.c.o
 
@@ -279,11 +319,15 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... db_cli"
 	@echo "... test_file_db"
 	@echo "... file_db"
 	@echo "... src/hkdf.o"
 	@echo "... src/hkdf.i"
 	@echo "... src/hkdf.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 	@echo "... src/sys_utils.o"
 	@echo "... src/sys_utils.i"
 	@echo "... src/sys_utils.s"

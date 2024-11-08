@@ -15,7 +15,8 @@
 					"targetIndexes" : 
 					[
 						0,
-						1
+						1,
+						2
 					]
 				}
 			],
@@ -31,12 +32,20 @@
 					"targetIndexes" : 
 					[
 						0,
-						1
+						1,
+						2
 					]
 				}
 			],
 			"targets" : 
 			[
+				{
+					"directoryIndex" : 0,
+					"id" : "db_cli::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-db_cli-1d0f05f0175cd38bcd2f.json",
+					"name" : "db_cli",
+					"projectIndex" : 0
+				},
 				{
 					"directoryIndex" : 0,
 					"id" : "file_db::@6890427a1f51a3e7e1df",
@@ -47,7 +56,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "test_file_db::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-test_file_db-b7ff7943da51bf1a3bb5.json",
+					"jsonFile" : "target-test_file_db-f1c90f1fca8ba76e53e1.json",
 					"name" : "test_file_db",
 					"projectIndex" : 0
 				}

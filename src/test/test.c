@@ -115,7 +115,7 @@ void test_read_write_user(void) {
     unsigned char * buf;
     int i ;
     const char * bak = db_filename;
-    db_filename = "/home/ubuntu/file_db_project/build/db/test.db";
+    db_filename = "/tmp/test.db";
 
     remove(db_filename);
 
@@ -252,7 +252,7 @@ void test_db_import_export(void) {
     // );
     //printf("%s\n", aes_key);
     const char *bak = db_filename;
-    db_filename = "/home/ubuntu/file_db_project/build/db/test.db";
+    db_filename = "/tmp/test.db";
     remove(db_filename);
     TEST_ASSERT_EQUAL(-1 , db_import());
 
@@ -328,7 +328,7 @@ void test_db_import_export(void) {
 
 void test_db_user(void) {
     const char * bak = db_filename;
-    db_filename = "/home/ubuntu/file_db_project/build/db/test.db";
+    db_filename = "/tmp/test.db";
 
     remove(db_filename);
     TEST_ASSERT_EQUAL(-1 ,db_import());
