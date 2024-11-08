@@ -242,6 +242,7 @@ member* db_add_user(const char * name, const char gender , const unsigned int ag
             return &user_db->user[i];
         }
     }
+    printf("User db was full.(max: %d, current: %d)\n", MAX_USER, db_total_user());
     return NULL;
 }
 

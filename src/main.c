@@ -5,8 +5,11 @@
 //db reset
 //user add
 //user delete
-//user get
 //user list
+//완료
+
+
+//user get
 //user set = ./db_cli user set age=17/name=park
 
 void db_command(int argc , char * argv[]) {
@@ -117,12 +120,12 @@ void db_user(int argc , char * argv[]) {
 }
 
 void main(int argc , char* argv[]) {
-    printf("--------------------\n");
-    printf("argc:%d\n", argc);
-    for(int i = 0 ; i < argc ; i ++) {
-        printf("%s\n", argv[i]);
-    }
-    printf("--------------------\n");
+    // printf("--------------------\n");
+    // printf("argc:%d\n", argc);
+    // for(int i = 0 ; i < argc ; i ++) {
+    //     printf("%s\n", argv[i]);
+    // }
+    // printf("--------------------\n");
 
     if (argc < 2) {
         printf("Usage: %s <command> [<args>]\n", argv[0]);

@@ -9,7 +9,7 @@
 #include "sys_utils.h"
 #include "user_db.h"
 
-const char *db_filename = "/home/ubuntu/file_db_project/build/db/file.db";
+const char *db_filename = "/etc/file.db";
 static char unique_id[24]; 
 
 static char *get_default_interface()
