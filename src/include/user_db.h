@@ -45,10 +45,12 @@ int db_export(void);
 int cprng(uint8_t *buf, size_t len);
 int aes128_cbc_encrypt(const uint8_t *in, size_t in_len, uint8_t *out, size_t *out_len, const uint8_t key[16], const uint8_t iv[16]);
 int aes128_cbc_decrypt(const uint8_t *in, size_t in_len, uint8_t *out, size_t *out_len, const uint8_t key[16], const uint8_t iv[16]);
-member* db_add_user(const char * name, char gender , uint8_t age);
+member* db_add_user(const char * name, const char gender , const unsigned int age);
 int db_total_user(void);
 int db_delete_user(const char * name);
 member * db_find_user_by_name(const char * name);
 member * db_find_user_by_id(uint32_t id);
+member * db_find_user_by_index(int index);
+void clear_mem(void);
 
 #endif

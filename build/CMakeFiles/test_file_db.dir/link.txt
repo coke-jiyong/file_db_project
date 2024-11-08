@@ -1,1 +1,1 @@
-/usr/bin/cc  -g   CMakeFiles/test_file_db.dir/src/test/test.c.o CMakeFiles/test_file_db.dir/src/test/unity.c.o  -o test_file_db  libfile_db.a -lcrypto 
+/usr/bin/cc  -g   CMakeFiles/test_file_db.dir/src/test/test.c.o CMakeFiles/test_file_db.dir/src/test/unity.c.o  -o test/test_file_db  libfile_db.a -lcrypto 

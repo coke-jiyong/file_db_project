@@ -62,7 +62,7 @@ int cprng(uint8_t *buf, size_t len)
 }
 
 //conf 불러오기 , aes_key 생성
-int init() {
+int init(void) {
     
     init_config(&conf);
     if (conf.info == NULL || conf.passphrase == NULL || conf.unique_id == NULL) {
@@ -214,18 +214,19 @@ int db_init(void)
     return 0;
 }
 
-member* db_add_user(const char * name, char gender , uint8_t age) {
-    
-    if (user_db == NULL || name == NULL || (gender != MALE && gender != FEMALE) || age < 0) {
+member* db_add_user(const char * name, const char gender , const unsigned int age) {
+    //recheck
+    if (user_db == NULL || name == NULL|| (gender != MALE && gender != FEMALE) || age < 0) {
         return NULL;
     }
-
+    
     //중복 검사
     for (int i = 0 ; i < MAX_USER ; i ++) {    
         if(user_db->user[i].name[0] == '\0') { // 해주지 않으면 밑의 strcmp 에러.
             continue;
         }
         if(!strcmp(user_db->user[i].name, name)) {
+            printf("Duplicated: %s\n", name);
             return NULL;
         }
     }
@@ -241,7 +242,6 @@ member* db_add_user(const char * name, char gender , uint8_t age) {
             return &user_db->user[i];
         }
     }
-
     return NULL;
 }
 
@@ -303,6 +303,20 @@ member * db_find_user_by_id(uint32_t id) {
         }
     }    
     return NULL;
+}
+
+member * db_find_user_by_index(int index) {
+    if(user_db == NULL || user_db->user[index].name[0] == '\0') {
+        return NULL;
+    } else {
+        return &user_db->user[index];
+    }
+}
+void clear_mem(void) {
+    if(user_db!=NULL) {
+        free(user_db);
+        user_db=NULL;
+    }
 }
 // member *db_add_user(char *name , char gender, uint8_t age) {
 //     if (name == NULL || user_db == NULL) {
