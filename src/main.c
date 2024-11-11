@@ -10,7 +10,8 @@
 
 
 //user get
-//user set = ./db_cli user set age=17/name=park
+//user set = ./db_cli user modify id --name name --age age --gender gender
+
 
 void db_command(int argc , char * argv[]) {
     if (argc < 1) {
@@ -51,6 +52,12 @@ void print_user_list(void){
     }
 }
 
+void print_user(member * user){
+    if(user == NULL) {
+        return ;
+    }
+    printf("%d\t%s\t%d\t%c\n", user->id, user->name, user->age, user->gender);
+}
 void add_user(char *argv[]) {
     if(strlen(argv[0]) > 20) {
         printf("Invalid name length(max 20): %s\n",argv[0]);
@@ -98,19 +105,94 @@ member* get_user(char * name) {
         return NULL;
     }
     return user;
-    
-    
 }
 
+void print_modify_usage(void) {
+    printf("Usage: ./db_cli user modify <user_ID> [<--option> <parameter>] ...\n");
+    printf("Available option are:\n");
+    printf("\t--name <name>\n");
+    printf("\t--age <age(1~150)>\n");
+    printf("\t--gender <gender(M,F)>\n");
+}
+
+void modify_option_handle(const unsigned long id , char * option , char * param) {
+
+    int option_name = strcmp(option, "--name");
+    int option_age = strcmp(option, "--age");
+    int option_gender = strcmp(option, "--gender");
+    if(option_name && option_age && option_gender) {
+        printf("Invalid option: %s\n", option);
+        printf("Available option are:\n");
+        printf("\t--name <name>\n");
+        printf("\t--age <age(1~150)>\n");
+        printf("\t--gender <gender(M,F)>\n");
+        return;
+    }
+
+    member * bakup_user = db_find_user_by_id((uint32_t)id);
+    if (bakup_user == NULL) {
+        printf("Unkown ID: %ld\n", id);
+        return ;
+    }
+
+    if(!option_name){
+        char bakup_name[NAME_LEN_MAX];
+        strcpy(bakup_name, bakup_user->name); //이전 이름 백업.
+
+        member * user = db_modify_name((uint32_t)id , param);
+        if (user != NULL) {
+            printf("Modify success.\n");
+            printf("\tInfo: ID %ld name %s -> %s\n", id ,bakup_name, user->name);
+        } else {
+            printf("Modify name failed, somethings wrong.\n");
+        }
+        return ;
+    } 
+
+    if(!option_age){
+        uint8_t bakup_age = bakup_user->age; // 이전 나이 백업
+
+        char * endptr;
+        const unsigned long age = strtoul(param, &endptr , 10); 
+        if (strlen(endptr) != 0) {
+            printf("Invalid age: %s[%s?]\n", param, endptr);
+            return;
+        }
+        member * user = db_modify_age((uint32_t)id , age);
+        if (user != NULL) {
+            printf("Modify success.\n");
+            printf("\tInfo: ID %ld age %d -> %d\n", id ,bakup_age, user->age);
+        } else {
+            printf("Modify age failed, somethings wrong.\n");
+        }
+        return ;
+    } 
+
+    if(!option_gender){
+        char bakup_gender = bakup_user->gender; // 이전 성별 백업
+        if(strcmp("M", param) && strcmp("F", param)) {
+            printf("Invalid gender: 'M'(male) or 'F'(female) required.\n");
+            return ;
+        }
+        member * user = db_modify_gender((uint32_t)id , param[0]);
+        if (user != NULL) {
+            printf("Modify success.\n");
+            printf("\tInfo: ID %ld gender %c -> %c\n", id ,bakup_gender, user->gender);
+        } else {
+            printf("Modify age failed, somethings wrong.\n");
+        }
+        return ;
+    } 
+}
 void db_user(int argc , char * argv[]) {
     if (argc < 1) {
         printf("Usage: %s user <command> [<args>]\n", argv[0]);
-        printf("Avaliable sub-commands are:\n");
+        printf("Available sub-commands are:\n");
         printf("   list\n");
         printf("   add <user_name> <user_age> <user_gender>\n");
         printf("   delete <user_name>\n");
         printf("   get <user_name>\n");
-        printf("   update <user_name> -age <age(1~150)> -gender <gender(M,F)>\n");
+        printf("   modify <user_ID> --name <name> --age <age(1~150)> --gender <gender(M,F)>\n");
         return ;
     }
 
@@ -154,16 +236,47 @@ void db_user(int argc , char * argv[]) {
         for(int i = 0 ; i < cnt ; i ++) {
             printf("User %s not found.\n",unknown_names[i]);
         }
+    } else if(!strcmp(argv[2], "modify")) {
+        //printf("argc: %d\n", argc);
+        if(argc < 4) {
+            print_modify_usage();
+            return;
+        }
+
+        char * endptr;
+        const unsigned long id = strtoul(argv[3], &endptr , 10); //argv[3] = id
+        if(strlen(endptr) != 0) {
+            printf("Invalid user ID: ID is only number. %s[%s?]\n", argv[3],endptr);
+            return ;
+        }
+        switch(argc) {
+            case 8:
+                modify_option_handle(id , argv[4], argv[5]);
+                modify_option_handle(id , argv[6], argv[7]);
+                modify_option_handle(id , argv[8], argv[9]);
+                break;
+            case 6:
+                modify_option_handle(id , argv[4], argv[5]);
+                modify_option_handle(id , argv[6], argv[7]);
+                break;
+            case 4:
+                modify_option_handle(id , argv[4], argv[5]);
+                break;
+            default:
+                print_modify_usage();
+        }
+    } else {
+        printf("Unkown sub-command: %s\n", argv[2]);
     }
 }
 
 void main(int argc , char* argv[]) {
-    printf("--------------------\n");
-    printf("argc:%d\n", argc);
-    for(int i = 0 ; i < argc ; i ++) {
-        printf("%s\n", argv[i]);
-    }
-    printf("--------------------\n");
+    // printf("--------------------\n");
+    // printf("argc:%d\n", argc);
+    // for(int i = 0 ; i < argc ; i ++) {
+    //     printf("%s\n", argv[i]);
+    // }
+    // printf("--------------------\n");
 
     if (argc < 2) {
         printf("Usage: %s <command> [<args>]\n", argv[0]);

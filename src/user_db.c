@@ -9,11 +9,11 @@ header_conf conf;
 
 int aes128_cbc_decrypt(const uint8_t *in, size_t in_len, uint8_t *out, size_t *out_len, const uint8_t key[16], const uint8_t iv[16])
 {
-    AES_KEY aes_key;
+    AES_KEY AES_KEY;
     uint8_t iv_int[16];
     memcpy(iv_int, iv, 16);
-    AES_set_decrypt_key(key, 128, &aes_key);
-    AES_cbc_encrypt(in, out, in_len, &aes_key, iv_int, AES_DECRYPT);
+    AES_set_decrypt_key(key, 128, &AES_KEY);
+    AES_cbc_encrypt(in, out, in_len, &AES_KEY, iv_int, AES_DECRYPT);
 
     size_t padding_len = out[in_len - 1];
     if (padding_len > 16) {
@@ -26,7 +26,7 @@ int aes128_cbc_decrypt(const uint8_t *in, size_t in_len, uint8_t *out, size_t *o
 
 int aes128_cbc_encrypt(const uint8_t *in, size_t in_len, uint8_t *out, size_t *out_len, const uint8_t key[16], const uint8_t iv[16])
 {
-    AES_KEY aes_key;
+    AES_KEY AES_KEY;
     uint8_t iv_int[16];
     uint8_t padding[16];
     size_t padding_len;
@@ -36,17 +36,17 @@ int aes128_cbc_encrypt(const uint8_t *in, size_t in_len, uint8_t *out, size_t *o
         // Output buffer is too small
         return -1;
     }
-    AES_set_encrypt_key(key, 128, &aes_key);
+    AES_set_encrypt_key(key, 128, &AES_KEY);
 
     // Encrypt all full blocks 
     size_t full_block_len = in_len - (in_len % 16);
-    AES_cbc_encrypt(in, out, full_block_len, &aes_key, iv_int, AES_ENCRYPT);
+    AES_cbc_encrypt(in, out, full_block_len, &AES_KEY, iv_int, AES_ENCRYPT);
 
     // Prepare and encrypt the last block with PKCS#7 padding
     padding_len = 16 - (in_len % 16);
     memcpy(padding, in + full_block_len, in_len % 16);
     memset(padding + (in_len % 16), padding_len, padding_len);
-    AES_cbc_encrypt(padding, out + full_block_len, 16, &aes_key, iv_int, AES_ENCRYPT);
+    AES_cbc_encrypt(padding, out + full_block_len, 16, &AES_KEY, iv_int, AES_ENCRYPT);
 
     *out_len = full_block_len + 16;
     return 0;    
@@ -90,7 +90,7 @@ void db_new(void) {
     size_t size = sizeof(header) + MAX_USER * sizeof(member);
     user_db = (header*)malloc(size);
     user_db->magic = USER_DB_MAGIC;
-    user_db->user_id = START_USER_ID;
+    user_db->start_user_id = START_USER_ID;
     cprng(user_db->iv + sizeof(uint64_t) , sizeof(user_db->iv) - sizeof(uint64_t));
     
 }
@@ -113,7 +113,7 @@ int db_export(void){
     memset(enc , 0 , size + PADDING_SIZE);
     memcpy(enc , user_db , sizeof(header));
 
-    size_t enc_off = offsetof(header, user_id); //암호화 하지 않을 offset
+    size_t enc_off = offsetof(header, start_user_id); //암호화 하지 않을 offset
     size_t out_len = size - enc_off + PADDING_SIZE;
 
     int res = aes128_cbc_encrypt((uint8_t*)user_db + enc_off , size - enc_off , //out_len + 16 > *out_len
@@ -182,7 +182,7 @@ int db_import(void) {
     }
 
     //user_db 에 read_user로 읽은 파일 복사 및 복호화
-    size_t enc_off = offsetof(header , user_id);
+    size_t enc_off = offsetof(header , start_user_id);
     user_db = (header*)malloc(res);
     memset(user_db , 0 , res);
     memcpy(user_db , enc , enc_off); // 암호화 되지 않은 파일은 그대로 복사.
@@ -238,7 +238,7 @@ member* db_add_user(const char * name, const char gender , const unsigned int ag
             strncpy(user_db->user[i].name , name, strlen(name));
             user_db->user[i].age = age;
             user_db->user[i].gender = gender;
-            user_db->user[i].id = user_db->user_id++;
+            user_db->user[i].id = user_db->start_user_id++;
 
             return &user_db->user[i];
         }
@@ -314,6 +314,55 @@ member * db_find_user_by_index(int index) {
         return &user_db->user[index];
     }
 }
+
+member * db_modify_name(uint32_t id , char * name){
+    if(user_db == NULL || name == NULL) {
+        return NULL;
+    }
+    int user_cnt = db_total_user();
+    for (int i = 0 ; i < user_cnt ; i ++) {
+        if(user_db->user[i].id == id) {
+            strcpy(user_db->user[i].name, name);
+            db_export();
+            return &user_db->user[i];
+        }
+    }
+    
+    return NULL;
+}
+
+member * db_modify_age(uint32_t id , uint8_t age) {
+    if(user_db == NULL) {
+        return NULL;
+    }
+    int user_cnt = db_total_user();
+    for (int i = 0 ; i < user_cnt ; i ++) {
+        if(user_db->user[i].id == id) {
+            user_db->user[i].age = age;
+            db_export();
+            return &user_db->user[i];
+        }
+    }
+    
+    return NULL;
+}
+
+member * db_modify_gender(uint32_t id , char gender){
+    if(user_db == NULL || gender == '\0') {
+        return NULL;
+    }
+    int user_cnt = db_total_user();
+    for (int i = 0 ; i < user_cnt ; i ++) {
+        if(user_db->user[i].id == id) {
+            user_db->user[i].gender = gender;
+            db_export();
+            return &user_db->user[i];
+        }
+    }
+
+    return NULL;
+}
+
 void clear_mem(void) {
     if(user_db!=NULL) {
         free(user_db);
