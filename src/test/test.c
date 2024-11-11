@@ -157,6 +157,7 @@ void test_hamc(void) {
 
     hmac_sha256(key_long, strlen(key_long), data, strlen(data), hash1);
     openssl_hmac_sha256(key_long, strlen(key_long), data, strlen(data), hash2);
+    
     TEST_ASSERT_EQUAL_MEMORY(hash1, hash2, sizeof(hash1));
 }
 
@@ -234,7 +235,7 @@ void test_db_new(void) {
     db_new();
     TEST_ASSERT_NOT_NULL(user_db);
     TEST_ASSERT_EQUAL(USER_DB_MAGIC,user_db->magic);
-    TEST_ASSERT_EQUAL( START_USER_ID, user_db->user_id);
+    TEST_ASSERT_EQUAL( START_USER_ID, user_db->start_user_id);
     TEST_ASSERT_EQUAL(0, *(uint64_t*)user_db->iv);
     TEST_ASSERT_NOT_EQUAL(0, *(user_db->iv + sizeof(uint64_t)));
     free(user_db);
@@ -275,7 +276,7 @@ void test_db_import_export(void) {
     db_new();
     TEST_ASSERT_NOT_EQUAL(NULL, user_db);
     TEST_ASSERT_EQUAL(USER_DB_MAGIC, user_db->magic);
-    TEST_ASSERT_EQUAL(START_USER_ID, user_db->user_id);
+    TEST_ASSERT_EQUAL(START_USER_ID, user_db->start_user_id);
     TEST_ASSERT_EQUAL(0 , *(uint64_t*)user_db->iv);
     TEST_ASSERT_NOT_EQUAL(0 , *(uint64_t*)(user_db->iv + sizeof(uint64_t)));
 
@@ -291,7 +292,7 @@ void test_db_import_export(void) {
     TEST_ASSERT_EQUAL(0, db_import());
     TEST_ASSERT_EQUAL_MEMORY(buf + sizeof(header) , user_db->user, sizeof(member)* MAX_USER);
     TEST_ASSERT_EQUAL_MEMORY(buf + offsetof(header, iv) , user_db->iv , sizeof(user_db->iv));
-    TEST_ASSERT_EQUAL_MEMORY(buf + offsetof(header, user_id) , &user_db->user_id , sizeof(user_db->user_id)); 
+    TEST_ASSERT_EQUAL_MEMORY(buf + offsetof(header, start_user_id) , &user_db->start_user_id , sizeof(user_db->start_user_id)); 
     //주의! user_db->user_id 로 비교하면 segmentation error.
     //메모리 비교하는데 user_db->user_id 로 비교하면 값이 비교됨. TEST_ASSERT_EQUAL(1, user_db->user_id);
     
@@ -327,13 +328,13 @@ void test_db_import_export(void) {
 }
 
 void test_db_user(void) {
+    
     const char * bak = db_filename;
     db_filename = "/tmp/test.db";
-
     remove(db_filename);
     TEST_ASSERT_EQUAL(-1 ,db_import());
     init();
-
+    
     //test add_user
     for(int i = 0 ; i < MAX_USER ; i ++) {
         char name[20];
@@ -351,7 +352,6 @@ void test_db_user(void) {
         TEST_ASSERT_EQUAL(i + 1, db_total_user());
     }
     TEST_ASSERT_EQUAL(NULL , db_add_user("User10", MALE , 30));
-
     //test delete_user
     TEST_ASSERT_EQUAL(0 , db_delete_user("User5"));
     TEST_ASSERT_EQUAL(-1 , db_delete_user("User5"));
@@ -360,7 +360,7 @@ void test_db_user(void) {
     TEST_ASSERT_EQUAL(0 , db_delete_user("User0"));
     TEST_ASSERT_EQUAL(MAX_USER-2 , db_total_user());
 
-    TEST_ASSERT_EQUAL(-1 , db_delete_user("User15"));
+    TEST_ASSERT_EQUAL(-1 , db_delete_user("User11"));
     TEST_ASSERT_EQUAL(MAX_USER-2 , db_total_user());
 
     // test find
@@ -392,14 +392,14 @@ void test_db_user(void) {
 
     TEST_ASSERT_EQUAL(0 , db_export());
     TEST_ASSERT_EQUAL(0 , db_import());
-    size_t offset = offsetof(header, user_id);
-    TEST_ASSERT_EQUAL_MEMORY(buf + offset , &user_db->user_id, size-offset);
-    TEST_ASSERT_EQUAL(*(uint32_t*)(buf + offset) , user_db->user_id);
+    size_t offset = offsetof(header, start_user_id);
+    TEST_ASSERT_EQUAL_MEMORY(buf + offset , &user_db->start_user_id, size-offset);
+    TEST_ASSERT_EQUAL(*(uint32_t*)(buf + offset) , user_db->start_user_id);
     TEST_ASSERT_EQUAL(0 , db_export());
     free(user_db);
     user_db = NULL;
     TEST_ASSERT_EQUAL(0 , db_import());
-    TEST_ASSERT_EQUAL_MEMORY(buf + offset , &user_db->user_id, size-offset);
+    TEST_ASSERT_EQUAL_MEMORY(buf + offset , &user_db->start_user_id, size-offset);
 
     free(buf);
     free(user_db);
@@ -407,7 +407,48 @@ void test_db_user(void) {
     db_filename = bak;
 }
 
+void test_db_modify(void) {
+    const char * bak = db_filename;
+    db_filename = "/tmp/test.db";
+    remove(db_filename);
+    TEST_ASSERT_EQUAL(-1 ,db_import());
+    init();
 
+    member * cmp_mem = (member*)malloc(sizeof(member));
+    TEST_ASSERT_NOT_NULL(cmp_mem);
+    cmp_mem->age = 10;
+    cmp_mem->gender = MALE;
+    cmp_mem->id = 1;
+    strcpy(cmp_mem->name, "Hell World");
+
+    member * member = db_add_user("Yang", FEMALE, 27);
+    TEST_ASSERT_NOT_NULL(member);
+    TEST_ASSERT_EQUAL(1, member->id);
+    TEST_ASSERT_EQUAL_STRING("Yang", member->name);
+    TEST_ASSERT_EQUAL(27 ,member->age);
+    TEST_ASSERT_EQUAL(FEMALE ,member->gender);
+
+    member = db_modify_name(1, "Hell World");
+    TEST_ASSERT_NOT_NULL(member);
+    TEST_ASSERT_EQUAL_STRING(cmp_mem->name , member->name);
+
+    member = db_modify_age(1, 10);
+    TEST_ASSERT_NOT_NULL(member);
+    TEST_ASSERT_EQUAL_STRING(cmp_mem->name , member->name);
+    TEST_ASSERT_EQUAL(cmp_mem->age , member->age);
+
+    member = db_modify_gender(1, MALE);
+    TEST_ASSERT_NOT_NULL(member);
+    TEST_ASSERT_EQUAL_STRING(cmp_mem->name , member->name);
+    TEST_ASSERT_EQUAL(cmp_mem->age , member->age);
+    TEST_ASSERT_EQUAL(cmp_mem->gender, member->gender);
+
+    
+    free(cmp_mem);
+    free(user_db);
+    user_db = NULL;
+    db_filename = bak;
+}
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_init_config);
@@ -419,5 +460,7 @@ int main(void) {
     RUN_TEST(test_db_new);
     RUN_TEST(test_db_import_export);
     RUN_TEST(test_db_user);
+    RUN_TEST(test_db_modify);
+    clear_mem();
     return UNITY_END();
 }

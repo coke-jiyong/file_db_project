@@ -12,7 +12,7 @@
 #define MALE 'M'
 #define USER_DB_MAGIC 0x64404883
 #define START_USER_ID 1
-#define MAX_USER 10
+#define MAX_USER 10 //MAX_USER 가 35이상이면 db_user_count가 에러. 35부터는 메모리 크기가 문제인가 ..?
 #define AES128_KEY_LEN 16
 #define PADDING_SIZE AES128_KEY_LEN
 #define NAME_LEN_MAX 20
@@ -29,7 +29,7 @@ typedef struct
     uint32_t magic;
     uint8_t hmac[32];
     uint8_t iv[16];
-    uint32_t user_id;
+    uint32_t start_user_id;
     member user[0];
 } header;
 
@@ -52,5 +52,8 @@ member * db_find_user_by_name(const char * name);
 member * db_find_user_by_id(uint32_t id);
 member * db_find_user_by_index(int index);
 void clear_mem(void);
+member * db_modify_name(uint32_t id , char * name);
+member * db_modify_age(uint32_t id , uint8_t age);
+member * db_modify_gender(uint32_t id , char gender);
 
 #endif
