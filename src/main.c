@@ -92,6 +92,16 @@ void delete_user(char * name)  {
     }
 }
 
+member* get_user(char * name) {
+    member * user = db_find_user_by_name(name);
+    if (user == NULL) {
+        return NULL;
+    }
+    return user;
+    
+    
+}
+
 void db_user(int argc , char * argv[]) {
     if (argc < 1) {
         printf("Usage: %s user <command> [<args>]\n", argv[0]);
@@ -111,23 +121,49 @@ void db_user(int argc , char * argv[]) {
             printf("Usage: %s %s %s <user_name> <user_age(1~150)> <user_gender(M,F)>\n", argv[0], argv[1], argv[2]);
             return ;
         }
+
         add_user(argv+3);
     } else if(!strcmp(argv[2], "delete")) {
         if(argc < 2) {
             printf("Usage: %s %s %s <user_name>\n", argv[0],argv[1],argv[2]);
             return;
         }
+
         delete_user(argv[3]);
+    } else if(!strcmp(argv[2], "get")) {
+        if(argc < 2) {
+            printf("Usage: %s %s %s <user_name> <user_name> ...\n", argv[0],argv[1],argv[2]);
+            return;
+        }
+        //printf("%d\n",argc);
+        if(argc-1 > MAX_USER) { 
+            printf("Invalid argument, max user: %d\n", MAX_USER);
+            return ;
+        }
+        char unknown_names[NAME_LEN_MAX][MAX_USER];
+        int cnt = 0;
+        printf("ID\tname\tage\tgender\n");
+        for(int i = 0; i < argc -1 ; i ++) {
+            member* user = get_user(argv[i+3]);
+            if (user == NULL) {
+                strcpy(unknown_names[cnt++] , argv[i+3]);
+            } else {
+                printf("%d\t%s\t%d\t%c\n", user->id , user->name, user->age, user->gender);
+            }
+        }
+        for(int i = 0 ; i < cnt ; i ++) {
+            printf("User %s not found.\n",unknown_names[i]);
+        }
     }
 }
 
 void main(int argc , char* argv[]) {
-    // printf("--------------------\n");
-    // printf("argc:%d\n", argc);
-    // for(int i = 0 ; i < argc ; i ++) {
-    //     printf("%s\n", argv[i]);
-    // }
-    // printf("--------------------\n");
+    printf("--------------------\n");
+    printf("argc:%d\n", argc);
+    for(int i = 0 ; i < argc ; i ++) {
+        printf("%s\n", argv[i]);
+    }
+    printf("--------------------\n");
 
     if (argc < 2) {
         printf("Usage: %s <command> [<args>]\n", argv[0]);
