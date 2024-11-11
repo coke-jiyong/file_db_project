@@ -157,6 +157,7 @@ void test_hamc(void) {
 
     hmac_sha256(key_long, strlen(key_long), data, strlen(data), hash1);
     openssl_hmac_sha256(key_long, strlen(key_long), data, strlen(data), hash2);
+    
     TEST_ASSERT_EQUAL_MEMORY(hash1, hash2, sizeof(hash1));
 }
 
@@ -327,13 +328,13 @@ void test_db_import_export(void) {
 }
 
 void test_db_user(void) {
+    
     const char * bak = db_filename;
     db_filename = "/tmp/test.db";
-
     remove(db_filename);
     TEST_ASSERT_EQUAL(-1 ,db_import());
     init();
-
+    
     //test add_user
     for(int i = 0 ; i < MAX_USER ; i ++) {
         char name[20];
@@ -351,7 +352,6 @@ void test_db_user(void) {
         TEST_ASSERT_EQUAL(i + 1, db_total_user());
     }
     TEST_ASSERT_EQUAL(NULL , db_add_user("User10", MALE , 30));
-
     //test delete_user
     TEST_ASSERT_EQUAL(0 , db_delete_user("User5"));
     TEST_ASSERT_EQUAL(-1 , db_delete_user("User5"));
@@ -360,7 +360,7 @@ void test_db_user(void) {
     TEST_ASSERT_EQUAL(0 , db_delete_user("User0"));
     TEST_ASSERT_EQUAL(MAX_USER-2 , db_total_user());
 
-    TEST_ASSERT_EQUAL(-1 , db_delete_user("User15"));
+    TEST_ASSERT_EQUAL(-1 , db_delete_user("User11"));
     TEST_ASSERT_EQUAL(MAX_USER-2 , db_total_user());
 
     // test find
@@ -419,5 +419,6 @@ int main(void) {
     RUN_TEST(test_db_new);
     RUN_TEST(test_db_import_export);
     RUN_TEST(test_db_user);
+    clear_mem();
     return UNITY_END();
 }

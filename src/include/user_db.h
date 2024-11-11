@@ -12,7 +12,7 @@
 #define MALE 'M'
 #define USER_DB_MAGIC 0x64404883
 #define START_USER_ID 1
-#define MAX_USER 10
+#define MAX_USER 10 //MAX_USER 가 35이상이면 db_user_count가 에러. 35부터는 메모리 크기가 문제인가 ..?
 #define AES128_KEY_LEN 16
 #define PADDING_SIZE AES128_KEY_LEN
 #define NAME_LEN_MAX 20

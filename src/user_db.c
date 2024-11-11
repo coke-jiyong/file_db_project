@@ -86,12 +86,13 @@ void db_new(void) {
         free(user_db);
         user_db = NULL;
     }
-
+    
     size_t size = sizeof(header) + MAX_USER * sizeof(member);
     user_db = (header*)malloc(size);
     user_db->magic = USER_DB_MAGIC;
     user_db->user_id = START_USER_ID;
     cprng(user_db->iv + sizeof(uint64_t) , sizeof(user_db->iv) - sizeof(uint64_t));
+    
 }
 
 int db_export(void){

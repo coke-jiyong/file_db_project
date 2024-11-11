@@ -20,11 +20,11 @@ void db_command(int argc , char * argv[]) {
         return ;
     }
     if(!strcmp( argv[2] , "reset") ) {
-        if(!remove("/home/ubuntu/file_db_project/build/db/file.db")) {
+        if(!remove("/etc/file.db")) {
             printf("Delete db file success.\n");
             return ;
         } else {
-            printf("Can not delete db file.\n");
+            printf("Can not delete db file, maybe user doesn't have permission to delete file\n");
             return ;
         }
     } else {
@@ -76,8 +76,9 @@ void add_user(char *argv[]) {
     if(user == NULL) {
         printf("Error occured: failed input user_db.\n");
     } else {
-        printf("Create user success: %s\n", name);
-        db_export();
+        if(db_export()==0) {
+            printf("Create user success: %s\n", user->name);
+        }
     }
 }
 
@@ -86,8 +87,9 @@ void delete_user(char * name)  {
         printf("Not found user: %s\n",name);
         return;
     }
-    printf("Delete user: %s\n", name);
-    db_export();
+    if(db_export() == 0) {
+        printf("Delete user: %s\n", name);
+    }
 }
 
 void db_user(int argc , char * argv[]) {
