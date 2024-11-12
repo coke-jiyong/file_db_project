@@ -11,8 +11,16 @@
 
 //user get
 //user set = ./db_cli user modify id --name name --age age --gender gender
+//get,delete 도 옵션 설정
 
+void print_user(member * user){
+    if(user == NULL) {
+        return ;
+    }
+    printf("|  %d\t%s\t%d\t%c\t|\n", user->id, user->name, user->age, user->gender);
+}
 
+extern const char * db_filename;
 void db_command(int argc , char * argv[]) {
     if (argc < 1) {
         printf("Usage: %s db <command> [<args>]\n", argv[0]);
@@ -21,11 +29,11 @@ void db_command(int argc , char * argv[]) {
         return ;
     }
     if(!strcmp( argv[2] , "reset") ) {
-        if(!remove("/etc/file.db")) {
+        if(!remove(db_filename)) {
             printf("Delete db file success.\n");
             return ;
         } else {
-            printf("Can not delete db file, maybe user doesn't have permission to delete file\n");
+            printf("Can not delete db file.\n");
             return ;
         }
     } else {
@@ -40,24 +48,20 @@ void print_user_list(void){
     if(total == 0) {
         return;
     }
-    printf("ID\tname\tage\tgender\n");
+    printf("---------------------------------\n");
+    printf("|  ID\tname\tage\tgender  |\n");
     for(int i = 0 ; i < MAX_USER ; i ++) {
         member*user;
         user = db_find_user_by_index(i);
         if(user == NULL) {
             continue;
         } else {
-            printf("%d\t%s\t%d\t%c\n", user->id, user->name, user->age, user->gender);
+            print_user(user);
         }
     }
+    printf("---------------------------------\n");
 }
 
-void print_user(member * user){
-    if(user == NULL) {
-        return ;
-    }
-    printf("%d\t%s\t%d\t%c\n", user->id, user->name, user->age, user->gender);
-}
 void add_user(char *argv[]) {
     if(strlen(argv[0]) > 20) {
         printf("Invalid name length(max 20): %s\n",argv[0]);
@@ -125,7 +129,7 @@ void modify_option_handle(const unsigned long id , char * option , char * param)
         printf("Available option are:\n");
         printf("\t--name <name>\n");
         printf("\t--age <age(1~150)>\n");
-        printf("\t--gender <gender(M,F)>\n");
+        printf("\t--gender <gender(M,F)>\n\n");
         return;
     }
 
@@ -142,7 +146,7 @@ void modify_option_handle(const unsigned long id , char * option , char * param)
         member * user = db_modify_name((uint32_t)id , param);
         if (user != NULL) {
             printf("Modify success.\n");
-            printf("\tInfo: ID %ld name %s -> %s\n", id ,bakup_name, user->name);
+            printf("\tInfo: ID %ld name %s -> %s\n\n", id ,bakup_name, user->name);
         } else {
             printf("Modify name failed, somethings wrong.\n");
         }
@@ -161,7 +165,7 @@ void modify_option_handle(const unsigned long id , char * option , char * param)
         member * user = db_modify_age((uint32_t)id , age);
         if (user != NULL) {
             printf("Modify success.\n");
-            printf("\tInfo: ID %ld age %d -> %d\n", id ,bakup_age, user->age);
+            printf("\tInfo: ID %ld age %d -> %d\n\n", id ,bakup_age, user->age);
         } else {
             printf("Modify age failed, somethings wrong.\n");
         }
@@ -177,13 +181,14 @@ void modify_option_handle(const unsigned long id , char * option , char * param)
         member * user = db_modify_gender((uint32_t)id , param[0]);
         if (user != NULL) {
             printf("Modify success.\n");
-            printf("\tInfo: ID %ld gender %c -> %c\n", id ,bakup_gender, user->gender);
+            printf("\tInfo: ID %ld gender %c -> %c\n\n", id ,bakup_gender, user->gender);
         } else {
             printf("Modify age failed, somethings wrong.\n");
         }
         return ;
     } 
 }
+
 void db_user(int argc , char * argv[]) {
     if (argc < 1) {
         printf("Usage: %s user <command> [<args>]\n", argv[0]);
@@ -191,7 +196,7 @@ void db_user(int argc , char * argv[]) {
         printf("   list\n");
         printf("   add <user_name> <user_age> <user_gender>\n");
         printf("   delete <user_name>\n");
-        printf("   get <user_name>\n");
+        printf("   get --name=<name> or --age=<age> or --gender=<gender>\n");
         printf("   modify <user_ID> --name <name> --age <age(1~150)> --gender <gender(M,F)>\n");
         return ;
     }
@@ -214,7 +219,9 @@ void db_user(int argc , char * argv[]) {
         delete_user(argv[3]);
     } else if(!strcmp(argv[2], "get")) {
         if(argc < 2) {
-            printf("Usage: %s %s %s <user_name> <user_name> ...\n", argv[0],argv[1],argv[2]);
+            printf("Usage: %s %s %s --name=<user_name> <user_name> ...\n", argv[0],argv[1],argv[2]);
+            printf("\t\t\t --age=<age> <age> ...\n");
+            printf("\t\t\t --gender=<gender> <gender> ...\n");
             return;
         }
         //printf("%d\n",argc);
@@ -224,15 +231,17 @@ void db_user(int argc , char * argv[]) {
         }
         char unknown_names[NAME_LEN_MAX][MAX_USER];
         int cnt = 0;
-        printf("ID\tname\tage\tgender\n");
+        printf("---------------------------------\n");
+        printf("|  ID\tname\tage\tgender  |\n");
         for(int i = 0; i < argc -1 ; i ++) {
             member* user = get_user(argv[i+3]);
             if (user == NULL) {
                 strcpy(unknown_names[cnt++] , argv[i+3]);
             } else {
-                printf("%d\t%s\t%d\t%c\n", user->id , user->name, user->age, user->gender);
+                print_user(user);
             }
         }
+        printf("---------------------------------\n");
         for(int i = 0 ; i < cnt ; i ++) {
             printf("User %s not found.\n",unknown_names[i]);
         }
@@ -271,12 +280,12 @@ void db_user(int argc , char * argv[]) {
 }
 
 void main(int argc , char* argv[]) {
-    // printf("--------------------\n");
-    // printf("argc:%d\n", argc);
-    // for(int i = 0 ; i < argc ; i ++) {
-    //     printf("%s\n", argv[i]);
-    // }
-    // printf("--------------------\n");
+    printf("--------------------\n");
+    printf("argc:%d\n", argc);
+    for(int i = 0 ; i < argc ; i ++) {
+        printf("%s\n", argv[i]);
+    }
+    printf("--------------------\n");
 
     if (argc < 2) {
         printf("Usage: %s <command> [<args>]\n", argv[0]);
@@ -286,7 +295,11 @@ void main(int argc , char* argv[]) {
         return ;
     }
 
-    init();
+    if(init() == -1) {
+        fprintf(stderr , "Initialize failed.\n");
+        clear_mem();
+        exit(1);
+    }
 
     if(!strcmp(argv[1] , "db")) {
         db_command(argc - 2, argv);

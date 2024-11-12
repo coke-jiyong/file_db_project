@@ -208,6 +208,8 @@ int db_import(void) {
 int db_init(void)
 {
     int i = db_import();
+    //printf("%d\n",i);
+    // 의문점: 라즈베리파이에서는 위의 printf문주석을 풀지않고 빌드 후 실행하면 error. 이유를 모르겠음 동기화문제 아님. 시간문제 아님.
     if (i != 0) {
         db_new();
     }
