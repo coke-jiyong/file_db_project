@@ -1,15 +1,15 @@
-==168040== Memcheck, a memory error detector
-==168040== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==168040== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==168040== Command: ./db_cli db reset
-==168040== Parent PID: 168039
-==168040== 
-==168040== 
-==168040== HEAP SUMMARY:
-==168040==     in use at exit: 0 bytes in 0 blocks
-==168040==   total heap usage: 8 allocs, 8 frees, 7,787 bytes allocated
-==168040== 
-==168040== All heap blocks were freed -- no leaks are possible
-==168040== 
-==168040== For lists of detected and suppressed errors, rerun with: -s
-==168040== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==149835== Memcheck, a memory error detector
+==149835== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==149835== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==149835== Command: ./db_cli user get -gender=M
+==149835== Parent PID: 142383
+==149835== 
+==149835== 
+==149835== HEAP SUMMARY:
+==149835==     in use at exit: 0 bytes in 0 blocks
+==149835==   total heap usage: 8 allocs, 8 frees, 7,787 bytes allocated
+==149835== 
+==149835== All heap blocks were freed -- no leaks are possible
+==149835== 
+==149835== For lists of detected and suppressed errors, rerun with: -s
+==149835== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

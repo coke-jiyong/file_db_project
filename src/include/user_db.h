@@ -16,7 +16,7 @@
 #define AES128_KEY_LEN 16
 #define PADDING_SIZE AES128_KEY_LEN
 #define NAME_LEN_MAX 20
-
+#define ERROR_MSG(msg) fprintf(stderr, "Error at line %d: %s\n", __LINE__, msg)
 enum modify_optoin{
     OP_NAME = 1,
     OP_AGE = 2,
@@ -62,5 +62,6 @@ void clear_mem(void);
 member * db_modify_name(uint32_t id , char * name);
 member * db_modify_age(uint32_t id , uint8_t age);
 member * db_modify_gender(uint32_t id , char gender);
-
+member * db_find_user_by_age(uint8_t age);
+member * db_print_user_by_gender(char gender);
 #endif

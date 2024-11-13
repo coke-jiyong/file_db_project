@@ -1,0 +1,28 @@
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user modify 6 --name messi --age 38 --gender M
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user modify 6 --oame messi --age 38 --gender M
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user modify 6 --name=messi --age 38 --gender M
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user modify 6 --name messi --ages 38 --gender M
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user modify 6 --name messi --age 151 --gender M
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user modify 6 --name messi --age 151 --gender male
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user modify 23 --name messi --age 151 --gender male
+
+
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user get --name =park
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user get --name=Park
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user get --naome=park
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user get --name-Park
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user get --name Park
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user get --age=27
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user get --age=27 20 28 31 29 38 62 31 18 33
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user get --age=27 20 28 31 29 38 62 31 18 33 123
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user get --age=27 20 28 31 29 38 62 31 18 33 16
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user get --oge=28
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user get --age-28
+
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user get --gender=M
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user get --gender=m
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user get --geder=M
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user get --gender-M
+valgrind --leak-check=full --log-file=memcheck.txt --show-leak-kinds=all ./db_cli user get -gender=M
+
+

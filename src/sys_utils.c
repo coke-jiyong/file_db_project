@@ -9,6 +9,7 @@
 #include "sys_utils.h"
 #include "user_db.h"
 
+
 const char *db_filename = "/etc/file.db";
 static char unique_id[24]; 
 
