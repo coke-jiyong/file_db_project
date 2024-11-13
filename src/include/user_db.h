@@ -16,6 +16,13 @@
 #define AES128_KEY_LEN 16
 #define PADDING_SIZE AES128_KEY_LEN
 #define NAME_LEN_MAX 20
+
+enum modify_optoin{
+    OP_NAME = 1,
+    OP_AGE = 2,
+    OP_GENDDER = 3
+};
+
 typedef struct 
 {
     uint8_t age;
