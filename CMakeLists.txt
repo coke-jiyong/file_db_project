@@ -17,7 +17,7 @@ set_target_properties(test_file_db PROPERTIES
 )
 
 
-add_executable(db_cli src/main.c)
+add_executable(db_cli src/main.c src/main_utils.c)
 target_link_libraries(db_cli ${PROJECT_NAME})
 
 
