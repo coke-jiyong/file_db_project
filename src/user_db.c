@@ -135,6 +135,7 @@ int db_export(void){
     res = write_user(enc , out_len + enc_off);
     if (res != 0) {
         fprintf(stderr, "write user db error, maybe user doesn't have permission to write file\n");
+        clear_mem();
         free(enc);
         exit(1);    
     }
@@ -317,6 +318,33 @@ member * db_find_user_by_index(int index) {
     }
 }
 
+member * db_find_user_by_age(uint8_t age) {
+    if(user_db == NULL || age > 150) {
+        return NULL;
+    }
+    for(int i=0 ; i < MAX_USER ; i ++) {
+        if (user_db->user[i].name[0] == '\0') {
+            continue;
+        }
+        if (user_db->user[i].age == age){
+            return &user_db->user[i];
+        }
+    }
+    return NULL;
+}
+
+member * db_print_user_by_gender(char gender) {
+    for(int i=0 ; i < MAX_USER ; i ++) {
+        if (user_db->user[i].name[0] == '\0') {
+            continue;
+        }
+        if (user_db->user[i].gender == gender){
+            printf("|  %d\t%s\t%d\t%c\t|\n", user_db->user[i].id, user_db->user[i].name, user_db->user[i].age, user_db->user[i].gender);
+        }
+    }
+    return NULL;
+}
+
 member * db_modify_name(uint32_t id , char * name){
     if(user_db == NULL || name == NULL) {
         return NULL;
@@ -371,77 +399,3 @@ void clear_mem(void) {
         user_db=NULL;
     }
 }
-// member *db_add_user(char *name , char gender, uint8_t age) {
-//     if (name == NULL || user_db == NULL) {
-//         return NULL;
-//     }
-
-//     //중복 검사
-
-//     for(int i = 0 ; i < MAX_USER ; i ++) {
-//         if(user_db->user[i].name[0] == '\0')
-//             continue;
-
-//         if (strcmp(name , user_db->user[i].name) == 0)
-//     }
-// }
-
-// int main(void) {
-
-//     // db_new();
-//     // uint64_t res = *(uint64_t*)user_db->iv + 8; //iv[16]중 뒤 8바이트는 cprng()함수로 인해 0이면 에러.
-//     // if(res == 0) {
-//     //     fprintf(stderr,"error.\n");
-//     //     free(user_db);
-//     //     return 0;
-//     // }
-    
-//     // res = *(uint64_t*)user_db->iv; // iv[16] 중 앞의 8바이트는 초기화하지않았기때문에 0이여야함. de_new()직후만 한정.
-//     // if(res != 0) {
-//     //     fprintf(stderr,"error.\n");
-//     //     free(user_db);
-//     //     return 0;
-//     // }  
-
-
-//     // db_new();
-//     // printf("%d\n", *(uint64_t*)user_db->iv);
-//     // *(uint64_t*)user_db->iv = *(uint64_t*)user_db->iv + 1;
-//     // printf("%d\n", *(uint64_t*)user_db->iv);
-//     // free(user_db);
-    
-//     //export test
-//     // init();
-//     // db_new();
-//     // user_db->user[0].age = 28;
-//     // user_db->user[0].gender = MALE;
-//     // strcpy(user_db->user[0].name ,"Park" );
-//     // db_export();
-//     // free(user_db);
-//     // user_db = NULL;
-    
-//     //import test
-//     // init();
-//     // int res = db_import();
-//     // printf("db_import(): %d\n", res);
-//     // printf("name: %s\n", user_db->user->name);
-//     // printf("age: %d\n",user_db->user[0].age);
-//     // printf("gender: %c\n",user_db->user[0].gender);
-    
-//     // if(res == 0) {
-//     //     //printf("name: %s\nage: %d\ngender: %c\n",user_db->user[0].name,user_db->user[0].age, user_db->user[0].gender);
-//     //     free(user_db);
-//     // }
-
-
-//     init();
-//     // user_db->user[0].age = 28;
-//     // user_db->user[0].gender = MALE;
-//     // strcpy(user_db->user[0].name ,"Park" );
-//     // db_export();
-
-
-//     printf("name: %s\nage: %d\ngender: %c\n",user_db->user[0].name,user_db->user[0].age, user_db->user[0].gender);
-//     free(user_db);
-//     return 0;
-// }
