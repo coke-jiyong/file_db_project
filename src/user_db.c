@@ -207,9 +207,9 @@ int db_import(void) {
 
 //user_db로 파일db 가져옴.
 int db_init(void)
-{
+{   
     int i = db_import();
-    //printf("%d\n",i);
+    // printf("%d\n",i);
     // 의문점: 라즈베리파이에서는 위의 printf문주석을 풀지않고 빌드 후 실행하면 error. 이유를 모르겠음 동기화문제 아님. 시간문제 아님.
     if (i != 0) {
         db_new();
@@ -318,22 +318,23 @@ member * db_find_user_by_index(int index) {
     }
 }
 
-member * db_find_user_by_age(uint8_t age) {
-    if(user_db == NULL || age > 150) {
-        return NULL;
+void db_print_user_by_age(uint8_t age) {
+    if(user_db == NULL || age > 150) { //recheck age
+        return;
     }
-    for(int i=0 ; i < MAX_USER ; i ++) {
-        if (user_db->user[i].name[0] == '\0') {
+
+    for (int i = 0 ; i < MAX_USER ; i ++) {
+        if(user_db->user[i].name[0]=='\0') {
             continue;
         }
-        if (user_db->user[i].age == age){
-            return &user_db->user[i];
+
+        if(user_db->user[i].age == age) {
+            printf("|  %d\t%s\t%d\t%c\t|\n", user_db->user[i].id, user_db->user[i].name, user_db->user[i].age, user_db->user[i].gender);
         }
     }
-    return NULL;
 }
 
-member * db_print_user_by_gender(char gender) {
+void db_print_user_by_gender(char gender) {
     for(int i=0 ; i < MAX_USER ; i ++) {
         if (user_db->user[i].name[0] == '\0') {
             continue;
@@ -342,7 +343,6 @@ member * db_print_user_by_gender(char gender) {
             printf("|  %d\t%s\t%d\t%c\t|\n", user_db->user[i].id, user_db->user[i].name, user_db->user[i].age, user_db->user[i].gender);
         }
     }
-    return NULL;
 }
 
 member * db_modify_name(uint32_t id , char * name){
