@@ -29,7 +29,7 @@ void main(int argc , char* argv[]) {
     if(init() == -1) {
         fprintf(stderr , "Initialize failed.\n");
         clear_mem();
-        exit(1);
+        return;
     }
 
     if(!strcmp(argv[1] , "db")) {
@@ -38,8 +38,6 @@ void main(int argc , char* argv[]) {
         db_user(argc - 2, argv);
     } else {
         printf("Unknown command : %s\n", argv[1]);
-        clear_mem();
-        return ;
     }
     clear_mem();
     return ;

@@ -3,6 +3,8 @@
 #include "hkdf.h"
 #include "sys_utils.h"
 #include "user_db.h"
+
+
 void print_user(member *user);
 void db_command(int argc, char *argv[]);
 void print_user_list(void);
@@ -24,4 +26,6 @@ void print_got_user_by_gender(char *gender);
 void get_option_handle(char *argv[], int argc);
 void modify_handle(char *argv[], int argc, unsigned long id);
 void db_user(int argc, char *argv[]);
+
+
 #endif

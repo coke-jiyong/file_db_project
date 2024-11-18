@@ -229,7 +229,7 @@ void print_got_user_by_name(char ** argv , int len) {
     printf("---------------------------------\n");
 }
 
-void print_got_user_by_age(char ** argv , int len) {
+void print_got_user_by_age(char ** argv , int len) { //argc[0] --age=31 ,len=1
     
     unsigned long *ages = (unsigned long*)malloc(sizeof(unsigned long) * len);
     if (ages == NULL) {
@@ -237,6 +237,7 @@ void print_got_user_by_age(char ** argv , int len) {
         return ;
     }
     // check age strings
+    int age_param_cnt = 0 ;
     for(int i = 0 ; i < len ; i ++) {
         unsigned long age;
         char * invalid_str = check_string_num(*(argv+i),&age);
@@ -250,15 +251,16 @@ void print_got_user_by_age(char ** argv , int len) {
             free(ages);
             return ;
         }
-        ages[i] = age;
+        ages[i] = age; // --age=32 15 22 56 : age 의 param 이 다수 전달 되었을때 .
+        age_param_cnt ++;
     }
+    // for(int i = 0 ; i < age_param_cnt ; i ++) {
+    //     printf("print_got_user_by_age - Debug: ages[%d]=%ld\n",i,ages[i]);    
+    // }
     printf("---------------------------------\n");
     printf("|  ID\tname\tage\tgender  |\n");
-    for(int i = 0 ; i < MAX_USER ; i ++) {
-        member * user = db_find_user_by_age((uint8_t)ages[i]);
-        if (user != NULL) {
-            print_user(user);
-        }
+    for(int i = 0 ; i < age_param_cnt ; i ++) {
+        db_print_user_by_age(ages[i]);
     }
     printf("---------------------------------\n");
     free(ages);
