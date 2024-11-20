@@ -353,7 +353,7 @@ void db_user(int argc , char * argv[]) {
         printf("   list\n");
         printf("   add <name> <user_age> <user_gender>\n");
         printf("   delete <name>\n");
-        printf("   get --name=<name> or --age=<age> or --gender=<gender>\n");
+        printf("   get --name=<name> ... or --age=<age> ... or --gender=<gender>\n");
         printf("   modify <user_ID> --name <name> --age <age(1~150)> --gender <gender(M,F)>\n");
         return ;
     }
