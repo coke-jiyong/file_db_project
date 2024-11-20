@@ -7,6 +7,15 @@ void print_user(member * user){
     printf("|  %d\t%s\t%d\t%c\t|\n", user->id, user->name, user->age, user->gender);
 }
 
+void print_header() {
+    printf("---------------------------------\n");
+    printf("|  ID\tname\tage\tgender  |\n");
+}
+
+void print_closer(){
+    printf("---------------------------------\n");
+}
+
 extern const char * db_filename;
 void db_command(int argc , char * argv[]) {
     if (argc < 1) {
@@ -32,8 +41,7 @@ void print_user_list(void) {
     if(total == 0) {
         return;
     }
-    printf("---------------------------------\n");
-    printf("|  ID\tname\tage\tgender  |\n");
+    print_header();
     for(int i = 0 ; i < MAX_USER ; i ++) {
         member*user;
         user = db_find_user_by_index(i);
@@ -43,7 +51,7 @@ void print_user_list(void) {
             print_user(user);
         }
     }
-    printf("---------------------------------\n");
+    print_closer();
 }
 
 char * check_string_num(char * str, unsigned long* age) {
@@ -126,7 +134,7 @@ void delete_user(char * name)  {
 
 member* get_user(char * name) {
     member * user = db_find_user_by_name(name);
-    if (user == NULL) {
+    if (user == NULL || !validate_name(name)) {
         return NULL;
     }
     return user;
@@ -212,13 +220,18 @@ void modify_option_handle(const unsigned long id , char * option , char * param)
     }
 }
 
+
 void print_got_user_by_name(char ** argv , int len) {
     char unknown_names[NAME_LEN_MAX][MAX_USER];
     int cnt = 0;
-    printf("---------------------------------\n");
-    printf("|  ID\tname\tage\tgender  |\n");
+
+    print_header();
     for(int i = 0; i < len ; i ++) {
         char * name = *(argv + i);
+        if(!validate_name(name)) {
+            printf("Invalid name length(max 20): %s\n",argv[0]);
+            return;
+        }
         member* user = get_user(name);
         if (user == NULL) {
             strcpy(unknown_names[cnt++] , name);
@@ -226,8 +239,11 @@ void print_got_user_by_name(char ** argv , int len) {
             print_user(user);
         }
     }
-    printf("---------------------------------\n");
-}
+    print_closer();
+    for (int i = 0 ; i < cnt ; i ++) {
+        printf("Unknown name %d: %s\n", i + 1, unknown_names[i]);
+    }
+} 
 
 void print_got_user_by_age(char ** argv , int len) { //argc[0] --age=31 ,len=1
     
@@ -257,12 +273,11 @@ void print_got_user_by_age(char ** argv , int len) { //argc[0] --age=31 ,len=1
     // for(int i = 0 ; i < age_param_cnt ; i ++) {
     //     printf("print_got_user_by_age - Debug: ages[%d]=%ld\n",i,ages[i]);    
     // }
-    printf("---------------------------------\n");
-    printf("|  ID\tname\tage\tgender  |\n");
+    print_header();
     for(int i = 0 ; i < age_param_cnt ; i ++) {
         db_print_user_by_age(ages[i]);
     }
-    printf("---------------------------------\n");
+    print_closer();
     free(ages);
     
 }
@@ -272,10 +287,9 @@ void print_got_user_by_gender(char * gender) {
         printf("Invalid gender: 'M'(male) or 'F'(female) required.\n");
         return ;
     }
-    printf("---------------------------------\n");
-    printf("|  ID\tname\tage\tgender  |\n");
+    print_header();
     db_print_user_by_gender(gender[0]);
-    printf("---------------------------------\n");
+    print_closer();
 }
 
 void get_option_handle(char * argv[], int argc) {
