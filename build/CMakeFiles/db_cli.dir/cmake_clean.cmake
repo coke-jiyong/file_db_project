@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/db_cli.dir/src/main.c.o"
+  "CMakeFiles/db_cli.dir/src/main_utils.c.o"
   "db_cli"
   "db_cli.pdb"
 )

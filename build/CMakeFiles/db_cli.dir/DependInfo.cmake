@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
   "/home/ubuntu/file_db_project/src/main.c" "/home/ubuntu/file_db_project/build/CMakeFiles/db_cli.dir/src/main.c.o"
+  "/home/ubuntu/file_db_project/src/main_utils.c" "/home/ubuntu/file_db_project/build/CMakeFiles/db_cli.dir/src/main_utils.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

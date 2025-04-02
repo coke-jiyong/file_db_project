@@ -3,6 +3,13 @@
 
 CMakeFiles/db_cli.dir/src/main.c.o
  ../src/include/hkdf.h
+ ../src/include/main_utils.h
  ../src/include/sys_utils.h
  ../src/include/user_db.h
  /home/ubuntu/file_db_project/src/main.c
+CMakeFiles/db_cli.dir/src/main_utils.c.o
+ ../src/include/hkdf.h
+ ../src/include/main_utils.h
+ ../src/include/sys_utils.h
+ ../src/include/user_db.h
+ /home/ubuntu/file_db_project/src/main_utils.c

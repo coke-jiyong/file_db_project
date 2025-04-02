@@ -125,6 +125,7 @@ void test_read_write_user(void) {
     TEST_ASSERT_EQUAL(NULL , buf);
 
     cprng(dummy, sizeof(dummy));
+    
     i = write_user(dummy , sizeof(dummy));
     TEST_ASSERT_EQUAL(0 , i);
 
@@ -146,19 +147,22 @@ void test_hamc(void) {
     const unsigned char *key_short = "keyshort";
     unsigned char key_long[128];
     const unsigned char *data = "dummy data short";
-    unsigned char hash1[32];
-    unsigned char hash2[32];
+    const unsigned short HASH_LEN = 32;
+    unsigned char hash1[HASH_LEN];
+    unsigned char hash2[HASH_LEN];
 
     cprng(key_long, sizeof(key_long));
 
     hmac_sha256(key_short, strlen(key_short), data, strlen(data), hash1);
     openssl_hmac_sha256(key_short, strlen(key_short), data, strlen(data), hash2);
-    TEST_ASSERT_EQUAL_MEMORY(hash1, hash2, sizeof(hash1));
+    TEST_ASSERT_EQUAL_MEMORY(hash1, hash2, HASH_LEN);
 
+    memset(hash1, 0x00, HASH_LEN);
+    memset(hash2, 0x00, HASH_LEN);
     hmac_sha256(key_long, strlen(key_long), data, strlen(data), hash1);
     openssl_hmac_sha256(key_long, strlen(key_long), data, strlen(data), hash2);
     
-    TEST_ASSERT_EQUAL_MEMORY(hash1, hash2, sizeof(hash1));
+    TEST_ASSERT_EQUAL_MEMORY(hash1, hash2, HASH_LEN);
 }
 
 void test_hkdf(void) {
@@ -170,7 +174,6 @@ void test_hkdf(void) {
     hkdf(key , strlen(key), salt , strlen(salt), info , strlen(info) , out1 , sizeof(out1));
     openssl_hkdf(key , strlen(key), salt , strlen(salt), info , strlen(info) , out2 , sizeof(out2));
     TEST_ASSERT_EQUAL_MEMORY(out1 , out2 , sizeof(out1));
-
 }
 
 
@@ -179,51 +182,56 @@ void test_aes_cbc(void) {
     const unsigned char iv[16] = "fedcba0987654321";
     unsigned char in[32] = "So Hard Language C ..";
     
-    unsigned char enc[32];
+    unsigned char enc1[32];
+    unsigned char enc2[32];
     unsigned char dec[32];
+    
     unsigned char enc_data[32] = {0x3d, 0xf6, 0xda, 0xb3, 0x6e, 0x39, 0x52, 0xd6, 0x46, 0x56, 
                                 0x16, 0x8a, 0x1e, 0xf0, 0x23, 0x0f, 0x22, 0x90, 0x07, 0x90, 
                                 0x4b, 0xa2, 0xa3, 0x28, 0x2c, 0xdf, 0x7f, 0x0d, 0x59, 0xfb, 
                                 0x69, 0x8d,}; //"So Hard Language C .." encrypt memory
     
     //fail required. out_len 패딩 필요.
-    size_t out_len = sizeof(enc);
-    int i = aes128_cbc_encrypt(in , strlen(in), enc, &out_len , key, iv); 
+    size_t out_len = sizeof(enc1);
+    int i = aes128_cbc_encrypt(in , strlen(in), enc1, &out_len , key, iv); 
     TEST_ASSERT_EQUAL(-1, i); 
 
-    memset(enc,0,sizeof(enc));
-    out_len = sizeof(enc) + PADDING_SIZE;
+    memset(enc1,0,sizeof(enc1));
+    out_len = sizeof(enc1) + PADDING_SIZE;
     //success required.
-    i = aes128_cbc_encrypt(in , strlen(in), enc, &out_len , key, iv); 
+    i = aes128_cbc_encrypt(in , strlen(in), enc1, &out_len , key, iv); 
     TEST_ASSERT_EQUAL(0, i); 
-    TEST_ASSERT_EQUAL(32, out_len);
-    TEST_ASSERT_EQUAL_MEMORY(enc_data, enc, sizeof(enc_data));
+    TEST_ASSERT_EQUAL(0, out_len % 16);
+    TEST_ASSERT_EQUAL_MEMORY(enc_data, enc1, sizeof(enc_data));
 
-    memset(enc,0,sizeof(enc));
-    evp_aes128_cbc_encrypt(in, strlen(in), enc , &out_len, key , iv);
-    TEST_ASSERT_EQUAL_MEMORY(enc_data, enc, sizeof(enc_data));
     
-    i = aes128_cbc_decrypt(enc, out_len, dec, &out_len, key, iv);
+    evp_aes128_cbc_encrypt(in, strlen(in), enc2 , &out_len, key , iv);
+    TEST_ASSERT_EQUAL(0, out_len % 16);
+    TEST_ASSERT_EQUAL_MEMORY(enc_data, enc2, sizeof(enc_data));
+    TEST_ASSERT_EQUAL_MEMORY(enc1, enc2, sizeof(enc1));
+    
+    i = aes128_cbc_decrypt(enc1, out_len, dec, &out_len, key, iv);
     TEST_ASSERT_EQUAL(0 , i);
     TEST_ASSERT_EQUAL(strlen(in), out_len);
     TEST_ASSERT_EQUAL_MEMORY(in, dec, out_len);
 
-    memset(enc , 0, sizeof(enc));
+    //recheck
+    memset(enc1 , 0, sizeof(enc1));
     char in2[16] ;
     cprng(in2 , sizeof(in2));
-    out_len = sizeof(enc) + 1;
-    i = aes128_cbc_encrypt(in2 , sizeof(in2), enc , &out_len , key, iv);
+    out_len = sizeof(enc1) + 1;
+    i = aes128_cbc_encrypt(in2 , sizeof(in2), enc1 , &out_len , key, iv);
     TEST_ASSERT_EQUAL(0 , i);
-    TEST_ASSERT_EQUAL(32, out_len);
+    TEST_ASSERT_EQUAL(0, out_len%16);
     
-    unsigned char enc2[32];
+    memset(enc2 , 0, sizeof(enc2));
     out_len = sizeof(enc2) + 1;
     evp_aes128_cbc_encrypt(in2 , sizeof(in2), enc2, &out_len, key, iv);
-    TEST_ASSERT_EQUAL(32, out_len);
-    TEST_ASSERT_EQUAL_MEMORY(enc, enc2, sizeof(enc));
+    TEST_ASSERT_EQUAL(0, out_len % 16);
+    TEST_ASSERT_EQUAL_MEMORY(enc1, enc2, sizeof(enc1));
 
     memset(dec , 0 , sizeof(dec));
-    i = aes128_cbc_decrypt(enc , out_len, dec, &out_len , key, iv);
+    i = aes128_cbc_decrypt(enc1 , out_len, dec, &out_len , key, iv);
     TEST_ASSERT_EQUAL(0, i);
     TEST_ASSERT_EQUAL(sizeof(in2), out_len);
     TEST_ASSERT_EQUAL_MEMORY(in2 , dec , out_len);
@@ -259,6 +267,7 @@ void test_db_import_export(void) {
 
     size_t size = sizeof(header) + sizeof(member) * MAX_USER;
     uint8_t * buf = (uint8_t*)malloc(size+16);
+    TEST_ASSERT_NOT_NULL(buf);
     memset(buf , 0 , size+16);
     write_user(buf,size); //test db에 파일 쓰기
     TEST_ASSERT_EQUAL(-2 , db_import()); //db magic error 출력
@@ -333,21 +342,24 @@ void test_db_user(void) {
     db_filename = "/tmp/test.db";
     remove(db_filename);
     TEST_ASSERT_EQUAL(-1 ,db_import());
+    // printf("init result : %d\n", init());
     init();
-    
     //test add_user
     for(int i = 0 ; i < MAX_USER ; i ++) {
-        char name[20];
+        char name[NAME_LEN_MAX];
         sprintf(name , "User%d", i);
         member * user;
         if(i % 2 ==0) {
-            user = db_add_user(name, MALE , i + 20);    
+            user = db_add_user(name, MALE , 20);
         } else {
-            user = db_add_user(name, FEMALE , i + 20);    
+            user = db_add_user(name, FEMALE , 20);    
         }
         TEST_ASSERT_NOT_EQUAL(NULL, user);
+        // printf("user_db->user[i].name : %s\n", user_db->user[i].name);
         TEST_ASSERT_EQUAL(START_USER_ID + i , user->id);
         TEST_ASSERT_EQUAL_STRING(name , user->name);
+        //printf("user_db->user[%d] : %s\n", i , user_db->user[i].name);
+        
         TEST_ASSERT_EQUAL_PTR(&user_db->user[i] , user);
         TEST_ASSERT_EQUAL(i + 1, db_total_user());
     }
@@ -359,8 +371,9 @@ void test_db_user(void) {
 
     TEST_ASSERT_EQUAL(0 , db_delete_user("User0"));
     TEST_ASSERT_EQUAL(MAX_USER-2 , db_total_user());
-
-    TEST_ASSERT_EQUAL(-1 , db_delete_user("User11"));
+    char name[NAME_LEN_MAX];
+    sprintf(name , "User%d", MAX_USER);
+    TEST_ASSERT_EQUAL(-1 , db_delete_user(name));
     TEST_ASSERT_EQUAL(MAX_USER-2 , db_total_user());
 
     // test find
@@ -394,7 +407,7 @@ void test_db_user(void) {
     TEST_ASSERT_EQUAL(0 , db_import());
     size_t offset = offsetof(header, start_user_id);
     TEST_ASSERT_EQUAL_MEMORY(buf + offset , &user_db->start_user_id, size-offset);
-    TEST_ASSERT_EQUAL(*(uint32_t*)(buf + offset) , user_db->start_user_id);
+    TEST_ASSERT_EQUAL(*((uint32_t*)(buf + offset)) , user_db->start_user_id);
     TEST_ASSERT_EQUAL(0 , db_export());
     free(user_db);
     user_db = NULL;

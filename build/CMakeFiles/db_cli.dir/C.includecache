@@ -18,6 +18,14 @@ stdarg.h
 openssl/sha.h
 -
 
+../src/include/main_utils.h
+hkdf.h
+../src/include/hkdf.h
+sys_utils.h
+../src/include/sys_utils.h
+user_db.h
+../src/include/user_db.h
+
 ../src/include/sys_utils.h
 stdint.h
 -
@@ -41,10 +49,10 @@ sys_utils.h
 /home/ubuntu/file_db_project/src/main.c
 stdio.h
 -
-hkdf.h
-/home/ubuntu/file_db_project/src/hkdf.h
-sys_utils.h
-/home/ubuntu/file_db_project/src/sys_utils.h
-user_db.h
-/home/ubuntu/file_db_project/src/user_db.h
+main_utils.h
+/home/ubuntu/file_db_project/src/main_utils.h
+
+/home/ubuntu/file_db_project/src/main_utils.c
+main_utils.h
+/home/ubuntu/file_db_project/src/main_utils.h
 

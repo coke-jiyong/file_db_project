@@ -66,7 +66,7 @@ int init(void) {
     
     init_config(&conf);
     if (conf.info == NULL || conf.passphrase == NULL || conf.unique_id == NULL) {
-        return -1;
+        return -2;
     }
     hkdf(
         (uint8_t *)conf.passphrase , strlen(conf.passphrase) , 
@@ -75,13 +75,13 @@ int init(void) {
         aes_key , sizeof(aes_key)
     );
 
-    db_init();
+    return db_init();
 }
 
 
 
 // user_db변수 초기화.
-void db_new(void) {
+int db_new(void) {
     if(user_db != NULL) {
         free(user_db);
         user_db = NULL;
@@ -89,10 +89,14 @@ void db_new(void) {
     
     size_t size = sizeof(header) + MAX_USER * sizeof(member);
     user_db = (header*)malloc(size);
+    if (user_db == NULL) {
+        return -1;
+    }
+    memset(user_db , 0x00 , size); //이 코드 한줄이 없어서 에러한참찾았다.. 메모리 할당 후 멤셋 습관화하자 .. 아오!
     user_db->magic = USER_DB_MAGIC;
     user_db->start_user_id = START_USER_ID;
     cprng(user_db->iv + sizeof(uint64_t) , sizeof(user_db->iv) - sizeof(uint64_t));
-    
+    return 0;
 }
 
 int db_export(void){
@@ -149,7 +153,7 @@ int db_export(void){
 //db파일 user_db로 읽어옴.
 int db_import(void) {
     uint8_t *enc;
-    size_t size = sizeof(header) + MAX_USER * sizeof(member) + PADDING_SIZE; //패딩을 ?
+    size_t size = sizeof(header) + MAX_USER * sizeof(member) + PADDING_SIZE; 
     int res;
     uint8_t hash[32];
     
@@ -212,10 +216,10 @@ int db_init(void)
     // printf("%d\n",i);
     // 의문점: 라즈베리파이에서는 위의 printf문주석을 풀지않고 빌드 후 실행하면 error. 이유를 모르겠음 동기화문제 아님. 시간문제 아님.
     if (i != 0) {
-        db_new();
+        i = db_new();
     }
     //printf("%d\n",i);
-    return 0;
+    return i;
 }
 
 member* db_add_user(const char * name, const char gender , const unsigned int age) {
@@ -242,9 +246,12 @@ member* db_add_user(const char * name, const char gender , const unsigned int ag
             user_db->user[i].age = age;
             user_db->user[i].gender = gender;
             user_db->user[i].id = user_db->start_user_id++;
-
             return &user_db->user[i];
         }
+        // else {
+        //     printf("%02x\n", user_db->user[i].name[0]);
+        // }
+        
     }
     printf("User db was full.(max: %d, current: %d)\n", MAX_USER, db_total_user());
     return NULL;

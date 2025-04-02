@@ -78,12 +78,12 @@ clean: CMakeFiles/file_db.dir/clean
 CMakeFiles/db_cli.dir/all: CMakeFiles/file_db.dir/all
 	$(MAKE) -f CMakeFiles/db_cli.dir/build.make CMakeFiles/db_cli.dir/depend
 	$(MAKE) -f CMakeFiles/db_cli.dir/build.make CMakeFiles/db_cli.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/file_db_project/build/CMakeFiles --progress-num=1,2 "Built target db_cli"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/file_db_project/build/CMakeFiles --progress-num=1,2,3 "Built target db_cli"
 .PHONY : CMakeFiles/db_cli.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/db_cli.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/file_db_project/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/file_db_project/build/CMakeFiles 7
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/db_cli.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/file_db_project/build/CMakeFiles 0
 .PHONY : CMakeFiles/db_cli.dir/rule
@@ -105,7 +105,7 @@ CMakeFiles/db_cli.dir/clean:
 CMakeFiles/test_file_db.dir/all: CMakeFiles/file_db.dir/all
 	$(MAKE) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/depend
 	$(MAKE) -f CMakeFiles/test_file_db.dir/build.make CMakeFiles/test_file_db.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/file_db_project/build/CMakeFiles --progress-num=7,8,9 "Built target test_file_db"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/file_db_project/build/CMakeFiles --progress-num=8,9,10 "Built target test_file_db"
 .PHONY : CMakeFiles/test_file_db.dir/all
 
 # Build rule for subdir invocation for target.
@@ -132,7 +132,7 @@ CMakeFiles/test_file_db.dir/clean:
 CMakeFiles/file_db.dir/all:
 	$(MAKE) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/depend
 	$(MAKE) -f CMakeFiles/file_db.dir/build.make CMakeFiles/file_db.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/file_db_project/build/CMakeFiles --progress-num=3,4,5,6 "Built target file_db"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/file_db_project/build/CMakeFiles --progress-num=4,5,6,7 "Built target file_db"
 .PHONY : CMakeFiles/file_db.dir/all
 
 # Build rule for subdir invocation for target.
