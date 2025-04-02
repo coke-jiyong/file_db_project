@@ -12,17 +12,11 @@
 #define MALE 'M'
 #define USER_DB_MAGIC 0x64404883
 #define START_USER_ID 1
-#define MAX_USER 10 //MAX_USER 가 35이상이면 db_user_count가 에러. 35부터는 메모리 크기가 문제인가 ..?
+#define MAX_USER 1000 //MAX_USER 가 35이상이면 db_user_count가 에러. 35부터는 메모리 크기가 문제인가 ..? -> 메모리 할당 후 memset 을 꼭 해주자 이놈아
 #define AES128_KEY_LEN 16
 #define PADDING_SIZE AES128_KEY_LEN
 #define NAME_LEN_MAX 20
 #define ERROR_MSG(msg) fprintf(stderr, "Error at line %d: %s\n", __LINE__, msg)
-
-enum modify_optoin{
-    OP_NAME = 1,
-    OP_AGE = 2,
-    OP_GENDDER = 3
-};
 
 typedef struct 
 {
@@ -40,8 +34,6 @@ typedef struct
     uint32_t start_user_id;
     member user[0];
 } header;
-
-
 
 extern uint8_t aes_key[AES128_KEY_LEN];
 extern header_conf conf;

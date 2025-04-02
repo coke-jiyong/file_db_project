@@ -203,6 +203,33 @@ src/main.c.s:
 	$(MAKE) -f CMakeFiles/db_cli.dir/build.make CMakeFiles/db_cli.dir/src/main.c.s
 .PHONY : src/main.c.s
 
+src/main_utils.o: src/main_utils.c.o
+
+.PHONY : src/main_utils.o
+
+# target to build an object file
+src/main_utils.c.o:
+	$(MAKE) -f CMakeFiles/db_cli.dir/build.make CMakeFiles/db_cli.dir/src/main_utils.c.o
+.PHONY : src/main_utils.c.o
+
+src/main_utils.i: src/main_utils.c.i
+
+.PHONY : src/main_utils.i
+
+# target to preprocess a source file
+src/main_utils.c.i:
+	$(MAKE) -f CMakeFiles/db_cli.dir/build.make CMakeFiles/db_cli.dir/src/main_utils.c.i
+.PHONY : src/main_utils.c.i
+
+src/main_utils.s: src/main_utils.c.s
+
+.PHONY : src/main_utils.s
+
+# target to generate assembly for a file
+src/main_utils.c.s:
+	$(MAKE) -f CMakeFiles/db_cli.dir/build.make CMakeFiles/db_cli.dir/src/main_utils.c.s
+.PHONY : src/main_utils.c.s
+
 src/sys_utils.o: src/sys_utils.c.o
 
 .PHONY : src/sys_utils.o
@@ -328,6 +355,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/main_utils.o"
+	@echo "... src/main_utils.i"
+	@echo "... src/main_utils.s"
 	@echo "... src/sys_utils.o"
 	@echo "... src/sys_utils.i"
 	@echo "... src/sys_utils.s"
